@@ -1,5 +1,5 @@
-import { ThemeProvider } from './contexts/ThemeContext';
-import { MarkdownConverter } from './components/MarkdownConverter';
+import { ThemeProvider } from "./contexts/ThemeContext";
+import { MarkdownConverter } from "./components/MarkdownConverter";
 
 export default function Home() {
   return (

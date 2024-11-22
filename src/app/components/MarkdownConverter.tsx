@@ -20,10 +20,10 @@ import {
 import { saveAs } from "file-saver";
 import { Button } from "./Button";
 import { MarkdownPreview } from "./MarkdownPreview";
+import { ThemeToggle } from "./ThemeToggle";
 
 export function MarkdownConverter() {
   const [markdown, setMarkdown] = useState("");
-  const [showPreview, setShowPreview] = useState(false);
   const [isConverting, setIsConverting] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -166,7 +166,7 @@ export function MarkdownConverter() {
   };
 
   return (
-    <div className="w-full max-w-4xl mx-auto p-4 space-y-4">
+    <div className="w-full max-w-7xl mx-auto p-4 space-y-4">
       <div className="flex justify-between items-center mb-4">
         <div>
           <input
@@ -177,23 +177,14 @@ export function MarkdownConverter() {
             id="file-upload"
           />
           <label htmlFor="file-upload">
-            <span className="inline-block">
-              <Button>Upload Markdown</Button>
-            </span>
+            <Button className="cursor-pointer">Upload Markdown</Button>
           </label>
         </div>
-        <Button
-          variant="secondary"
-          onClick={() => setShowPreview(!showPreview)}
-        >
-          {showPreview ? "Show Editor" : "Show Preview"}
-        </Button>
+        <ThemeToggle />
       </div>
 
-      <div className="h-[60vh] border border-secondary/20 rounded-lg overflow-hidden">
-        {showPreview ? (
-          <MarkdownPreview markdown={markdown} />
-        ) : (
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[60vh]">
+        <div className="border border-secondary/20 rounded-lg overflow-hidden">
           <Editor
             height="100%"
             defaultLanguage="markdown"
@@ -206,7 +197,10 @@ export function MarkdownConverter() {
               wordWrap: "on",
             }}
           />
-        )}
+        </div>
+        <div className="border border-secondary/20 rounded-lg overflow-hidden">
+          <MarkdownPreview markdown={markdown} />
+        </div>
       </div>
 
       {error && <div className="text-red-500 text-sm mt-2">{error}</div>}
