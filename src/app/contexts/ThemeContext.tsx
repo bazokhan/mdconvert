@@ -19,6 +19,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     if (savedTheme) {
       setTheme(savedTheme);
       document.documentElement.dataset.theme = savedTheme;
+    } else {
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+      const initialTheme = prefersDark ? "dark" : "light";
+      setTheme(initialTheme);
+      document.documentElement.dataset.theme = initialTheme;
+      localStorage.setItem("theme", initialTheme);
     }
   }, []);
 
