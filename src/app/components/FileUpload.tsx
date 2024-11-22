@@ -36,13 +36,17 @@ export function FileUpload({ onFileContent }: FileUploadProps) {
       {...getRootProps()}
       className={`
         relative
+        w-full sm:w-auto
         cursor-pointer
         transition-all
         ${isDragActive ? "scale-105" : ""}
       `}
     >
       <input {...getInputProps()} />
-      <Button variant="secondary" className="relative">
+      <Button
+        variant="secondary"
+        className="w-full sm:w-auto relative whitespace-nowrap"
+      >
         <span className="flex items-center gap-2">
           <svg
             className="w-5 h-5"

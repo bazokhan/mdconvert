@@ -35,12 +35,14 @@ export function MarkdownConverter() {
 
   return (
     <div className="w-full max-w-7xl mx-auto p-4 space-y-4">
-      <div className="flex justify-between items-center mb-4">
-        <div className="flex items-center gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
+        <div className="flex flex-wrap gap-4">
           <FileUpload onFileContent={setMarkdown} />
           <ExamplesMenu onSelectExample={setMarkdown} />
         </div>
-        <ThemeToggle />
+        <div className="sm:ml-auto">
+          <ThemeToggle />
+        </div>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[60vh]">
