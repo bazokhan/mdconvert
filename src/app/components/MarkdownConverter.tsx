@@ -8,15 +8,12 @@ import { MarkdownPreview } from "./MarkdownPreview";
 import { ThemeToggle } from "./ThemeToggle";
 import { convertToDocx } from "../utils/markdownUtils";
 import { FileUpload } from "./FileUpload";
+import { ExamplesMenu } from "./ExamplesMenu";
 
 export function MarkdownConverter() {
   const [markdown, setMarkdown] = useState("");
   const [isConverting, setIsConverting] = useState(false);
   const [error, setError] = useState<string | null>(null);
-
-  const handleFileContent = (content: string) => {
-    setMarkdown(content);
-  };
 
   const handleConvertToDocx = async () => {
     try {
@@ -39,7 +36,10 @@ export function MarkdownConverter() {
   return (
     <div className="w-full max-w-7xl mx-auto p-4 space-y-4">
       <div className="flex justify-between items-center mb-4">
-        <FileUpload onFileContent={handleFileContent} />
+        <div className="flex items-center gap-4">
+          <FileUpload onFileContent={setMarkdown} />
+          <ExamplesMenu onSelectExample={setMarkdown} />
+        </div>
         <ThemeToggle />
       </div>
 
