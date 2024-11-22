@@ -3,6 +3,7 @@ import { Button } from "./Button";
 import { ClipboardDocumentIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useTheme } from "../contexts/ThemeContext";
+import { generateWordHtml } from "../utils/markdownUtils";
 
 interface MarkdownPreviewProps {
   markdown: string;
@@ -14,56 +15,7 @@ export function MarkdownPreview({ markdown }: MarkdownPreviewProps) {
 
   const handleCopy = async () => {
     try {
-      marked.use({
-        renderer: {
-          heading(text, level) {
-            return `<h${level} style="mso-style-name:Heading ${level}; margin-top:12.0pt; margin-bottom:3.0pt; color: black;">${text}</h${level}>`;
-          },
-          paragraph(text) {
-            return `<p style="color: black;">${text}</p>`;
-          },
-          table(header, body) {
-            return `<table border="1" style="border-collapse:collapse; mso-table-layout-alt:fixed; border:solid windowtext 1.0pt; mso-border-alt:solid windowtext .5pt; background: white;">
-              ${header}${body}
-            </table>`;
-          },
-          tablerow(content) {
-            return `<tr style="mso-yfti-irow:0">${content}</tr>`;
-          },
-          tablecell(content, flags) {
-            const tag = flags.header ? "th" : "td";
-            return `<${tag} style="border:solid windowtext 1.0pt; mso-border-alt:solid windowtext .5pt; padding:5.0pt 5.0pt 5.0pt 5.0pt; color: black;">${content}</${tag}>`;
-          },
-          list(body, ordered) {
-            const tag = ordered ? "ol" : "ul";
-            return `<${tag} style="color: black;">${body}</${tag}>`;
-          },
-          listitem(text) {
-            return `<li style="color: black;">${text}</li>`;
-          },
-        },
-      });
-
-      const htmlContent = `
-        <html xmlns:w="urn:schemas-microsoft-com:office:word">
-          <head>
-            <meta charset="utf-8">
-            <style>
-              <!--@page WordSection1 {margin:1.0in 1.0in 1.0in 1.0in;}-->
-              body { color: black; background: white; }
-              h1 { mso-style-name:"Heading 1"; }
-              h2 { mso-style-name:"Heading 2"; }
-              h3 { mso-style-name:"Heading 3"; }
-              h4 { mso-style-name:"Heading 4"; }
-              h5 { mso-style-name:"Heading 5"; }
-              h6 { mso-style-name:"Heading 6"; }
-            </style>
-          </head>
-          <body>
-            ${marked(markdown)}
-          </body>
-        </html>
-      `;
+      const htmlContent = generateWordHtml(markdown);
 
       const container = document.createElement("div");
       container.style.position = "fixed";
