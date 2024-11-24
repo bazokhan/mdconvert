@@ -1,20 +1,22 @@
 import { Fragment } from "react";
-import { Menu, MenuButton, MenuItem, MenuItems, Transition } from "@headlessui/react";
+import {
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuItems,
+  Transition,
+} from "@headlessui/react";
 import { GlobeAltIcon } from "@heroicons/react/24/outline";
 import { useLanguage } from "../contexts/LanguageContext";
 import { Language } from "../utils/getTranslations";
+import { languageConfig } from "../i18n/config";
 
-const languages: { code: Language; name: string }[] = [
-  { code: "en", name: "English" },
-  { code: "ar", name: "العربية" },
-  { code: "zh", name: "中文" },
-  { code: "hi", name: "हिन्दी" },
-  { code: "fr", name: "Français" },
-  { code: "es", name: "Español" },
-  { code: "pt", name: "Português" },
-  { code: "ur", name: "اردو" },
-  { code: "fa", name: "فارسی" },
-] as const;
+const languages: { code: Language; name: string }[] = Object.values(
+  languageConfig
+).map((lang) => ({
+  code: lang.code,
+  name: lang.name,
+}));
 
 export function LanguageSelector() {
   const { language, setLanguage } = useLanguage();

@@ -11,6 +11,7 @@ export default {
     requestFeature: "فیچر کی درخواست کریں",
   },
   features: {
+    title: "ہمارے کنورٹر کو انتخاب کرنے کا کیوں؟",
     formatting: {
       title: "✨ مکمل فارمیٹنگ",
       description: "تمام ہیڈنگ اسٹائلز، ٹیبلز، لسٹس اور فارمیٹنگ کو بالکل اسی طرح برقرار رکھتا ہے۔",
@@ -49,6 +50,7 @@ export default {
     developedBy: "Trugraph کے ذریعہ تیار کردہ",
   },
   faq: {
+    title: "آسان سوالات",
     doINeedToCreateAnAccount: "کیا مجھے اکاؤنٹ بنانے کی ضرورت ہے؟",
     doINeedToCreateAnAccountDescription: "نہیں، آپ کو اکاؤنٹ بنانے کی ضرورت نہیں ہے۔ آپ ٹول کو مکمل طور پر آف لائن استعمال کر سکتے ہیں۔",
     doesItWorkOffline: "کیا یہ آف لائن کام کرتا ہے؟",

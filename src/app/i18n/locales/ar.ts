@@ -12,6 +12,7 @@ export default {
     requestFeature: "طلب ميزة",
   },
   features: {
+    title: "لماذا اخترنا محولنا؟",
     formatting: {
       title: "✨ تنسيق مثالي",
       description:
@@ -53,6 +54,7 @@ export default {
     developedBy: "مطور بواسطة Trugraph",
   },
   faq: {
+    title: "أسئلة متكررة",
     doINeedToCreateAnAccount: "هل أحتاج إلى إنشاء حساب؟",
     doINeedToCreateAnAccountDescription:
       "لا ، لا تحتاج إلى إنشاء حساب. يمكنك استخدام الأداة بشكل مستقل بالكامل.",

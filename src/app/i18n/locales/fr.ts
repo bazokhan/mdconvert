@@ -12,6 +12,7 @@ export default {
     requestFeature: "Demander une Fonctionnalité",
   },
   features: {
+    title: "Pourquoi choisir notre convertisseur ?",
     formatting: {
       title: "✨ Formatage Parfait",
       description:
@@ -57,6 +58,7 @@ export default {
     developedBy: "Développé par Trugraph",
   },
   faq: {
+    title: "Questions Fréquemment Posées",
     doINeedToCreateAnAccount: "Dois-je créer un compte ?",
     doINeedToCreateAnAccountDescription:
       "Non, vous n'avez pas besoin de créer un compte. Vous pouvez utiliser l'outil complètement hors ligne.",

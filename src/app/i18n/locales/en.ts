@@ -12,6 +12,7 @@ export default {
     requestFeature: "Request Feature",
   },
   features: {
+    title: "Why Choose Our Converter?",
     formatting: {
       title: "✨ Perfect Formatting",
       description:
@@ -55,6 +56,7 @@ export default {
     developedBy: "Developed by Trugraph",
   },
   faq: {
+    title: "Frequently Asked Questions",
     doINeedToCreateAnAccount: "Do I need to create an account?",
     doINeedToCreateAnAccountDescription:
       "No, you don't need to create an account. You can use the tool completely offline.",

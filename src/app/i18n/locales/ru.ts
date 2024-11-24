@@ -11,6 +11,7 @@ export default {
     requestFeature: "Предложить функцию",
   },
   features: {
+    title: "Почему выбрать наш конвертер?",
     formatting: {
       title: "✨ Идеальное форматирование",
       description: "Сохраняет все стили заголовков, таблицы, списки и форматирование в точности как задумано.",
@@ -49,6 +50,7 @@ export default {
     developedBy: "Разработано Trugraph",
   },
   faq: {
+    title: "Часто задаваемые вопросы",
     doINeedToCreateAnAccount: "Нужно ли создавать аккаунт?",
     doINeedToCreateAnAccountDescription: "Нет, создавать аккаунт не нужно. Вы можете использовать инструмент полностью офлайн.",
     doesItWorkOffline: "Работает ли это офлайн?",

@@ -11,6 +11,7 @@ export default {
     requestFeature: "Funktion Vorschlagen",
   },
   features: {
+    title: "Warum wählen Sie uns?",
     formatting: {
       title: "✨ Perfekte Formatierung",
       description: "Behält alle Überschriftenstile, Tabellen, Listen und Formatierungen genau wie beabsichtigt bei.",
@@ -49,6 +50,7 @@ export default {
     developedBy: "Entwickelt von Trugraph",
   },
   faq: {
+    title: "Häufig gestellte Fragen",
     doINeedToCreateAnAccount: "Muss ich ein Konto erstellen?",
     doINeedToCreateAnAccountDescription: "Nein, Sie müssen kein Konto erstellen. Sie können das Tool komplett offline nutzen.",
     doesItWorkOffline: "Funktioniert es offline?",

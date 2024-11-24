@@ -12,6 +12,7 @@ export default {
     requestFeature: "Solicitar Función",
   },
   features: {
+    title: "¿Por qué elegir nuestro convertidor?",
     formatting: {
       title: "✨ Formato Perfecto",
       description:
@@ -56,6 +57,7 @@ export default {
     developedBy: "Desarrollado por Trugraph",
   },
   faq: {
+    title: "Preguntas Frecuentes",
     doINeedToCreateAnAccount: "¿Necesito crear una cuenta?",
     doINeedToCreateAnAccountDescription:
       "No, no necesitas crear una cuenta. Puedes usar la herramienta completamente sin conexión.",

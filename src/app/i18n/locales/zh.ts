@@ -11,6 +11,7 @@ export default {
     requestFeature: "请求功能",
   },
   features: {
+    title: "为什么选择我们的转换器？",
     formatting: {
       title: "✨ 完美格式",
       description: "完全保持所有标题样式、表格、列表和格式。",
@@ -49,6 +50,7 @@ export default {
     developedBy: "由 Trugraph 开发",
   },
   faq: {
+    title: "常见问题",
     doINeedToCreateAnAccount: "我需要创建账户吗？",
     doINeedToCreateAnAccountDescription: "不，您不需要创建账户。您可以完全离线使用该工具。",
     doesItWorkOffline: "它可以离线工作吗？",

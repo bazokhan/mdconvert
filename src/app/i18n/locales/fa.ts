@@ -11,6 +11,7 @@ export default {
     requestFeature: "درخواست ویژگی",
   },
   features: {
+    title: "چرا از ما انتخاب کنید؟",
     formatting: {
       title: "✨ فرمت‌بندی کامل",
       description: "تمام سبک‌های عنوان، جداول، لیست‌ها و فرمت‌بندی را دقیقاً حفظ می‌کند.",
@@ -49,6 +50,7 @@ export default {
     developedBy: "توسعه یافته توسط Trugraph",
   },
   faq: {
+    title: "سوالات متداول",
     doINeedToCreateAnAccount: "آیا نیاز به ایجاد حساب کاربری دارم؟",
     doINeedToCreateAnAccountDescription: "خیر، نیازی به ایجاد حساب کاربری نیست. می‌توانید از این ابزار کاملاً آفلاین استفاده کنید.",
     doesItWorkOffline: "آیا به صورت آفلاین کار می‌کند؟",

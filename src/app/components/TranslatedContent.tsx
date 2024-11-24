@@ -3,6 +3,7 @@
 import { useLanguage } from "../contexts/LanguageContext";
 import { getTranslations } from "../utils/getTranslations";
 import { createMailtoLink } from "../utils/contact";
+
 export function TranslatedContent() {
   const { language } = useLanguage();
   const t = getTranslations(language);
@@ -72,7 +73,7 @@ export function TranslatedContent() {
       {/* Features List */}
       <section className="mt-16 max-w-4xl mx-auto">
         <h2 className="text-2xl font-bold text-center mb-8">
-          Why Choose Our Converter?
+          {t.features.title}
         </h2>
         <div className="grid md:grid-cols-2 gap-4">
           {[
@@ -94,9 +95,7 @@ export function TranslatedContent() {
 
       {/* FAQ Section for SEO */}
       <section className="mt-16 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8">
-          Frequently Asked Questions
-        </h2>
+        <h2 className="text-2xl font-bold text-center mb-8">{t.faq.title}</h2>
         <div className="space-y-6">
           <div>
             <h3 className="font-semibold mb-2">

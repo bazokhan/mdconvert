@@ -11,6 +11,7 @@ export default {
     requestFeature: "Solicitar Recurso",
   },
   features: {
+    title: "Por que escolher nosso conversor?",
     formatting: {
       title: "✨ Formatação Perfeita",
       description: "Mantém todos os estilos de título, tabelas, listas e formatação exatamente como planejado.",
@@ -49,6 +50,7 @@ export default {
     developedBy: "Criado por Trugraph",
   },
   faq: {
+    title: "Perguntas Frequentes",
     doINeedToCreateAnAccount: "Preciso criar uma conta?",
     doINeedToCreateAnAccountDescription: "Não, você não precisa criar uma conta. Você pode usar a ferramenta completamente offline.",
     doesItWorkOffline: "Funciona offline?",

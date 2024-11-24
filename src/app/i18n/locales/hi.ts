@@ -11,6 +11,7 @@ export default {
     requestFeature: "सुविधा का अनुरोध करें",
   },
   features: {
+    title: "हमारे कनवर्टर को चुनने का क्यों है?",
     formatting: {
       title: "✨ परफेक्ट फॉर्मेटिंग",
       description: "सभी हेडिंग स्टाइल, टेबल, सूचियाँ और फॉर्मेटिंग को बिल्कुल वैसे ही रखता है।",
@@ -49,6 +50,7 @@ export default {
     developedBy: "Trugraph द्वारा विकसित",
   },
   faq: {
+    title: "अक्सर पूछे जाने वाले प्रश्न",
     doINeedToCreateAnAccount: "क्या मुझे एक खाता बनाने की आवश्यकता है?",
     doINeedToCreateAnAccountDescription: "नहीं, आपको खाता बनाने की आवश्यकता नहीं, आप पूरी तरह से ऑफ़लाइन काम कर सकते हैं। आपके दस्तावेज़ कभी भी आपके डिवाइस से बाहर नहीं जाते।",
     doesItWorkOffline: "यह ऑफ़लाइन काम कर सकता है?",
