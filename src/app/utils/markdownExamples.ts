@@ -1,4 +1,4 @@
-interface MarkdownExample {
+export interface MarkdownExample {
   title: string;
   description: string;
   markdown: string;

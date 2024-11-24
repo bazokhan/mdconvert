@@ -54,6 +54,13 @@ export default function RootLayout({
             }),
           }}
         />
+        <script
+          async
+          defer
+          data-website-id={process.env.NEXT_PUBLIC_UMAMI_WEBSITE_ID}
+          data-domains="md2docx.trugraph.io"
+          src="https://analytics.umami.is/script.js"
+        />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

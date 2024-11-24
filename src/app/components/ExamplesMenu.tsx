@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Button } from "./Button";
 import { markdownExamples } from "../utils/markdownExamples";
+import type { MarkdownExample } from "../utils/markdownExamples";
 
 interface ExamplesMenuProps {
   onSelectExample: (markdown: string) => void;
@@ -8,6 +9,11 @@ interface ExamplesMenuProps {
 
 export function ExamplesMenu({ onSelectExample }: ExamplesMenuProps) {
   const [isOpen, setIsOpen] = useState(false);
+
+  const handleExampleSelect = (example: MarkdownExample) => {
+    onSelectExample(example.markdown);
+    setIsOpen(false);
+  };
 
   return (
     <div className="relative">
@@ -43,8 +49,7 @@ export function ExamplesMenu({ onSelectExample }: ExamplesMenuProps) {
                   key={index}
                   className="w-full text-left px-4 py-2 hover:bg-secondary/10 focus:bg-secondary/10 transition-colors"
                   onClick={() => {
-                    onSelectExample(example.markdown);
-                    setIsOpen(false);
+                    handleExampleSelect(example);
                   }}
                 >
                   <div className="font-medium text-foreground">
