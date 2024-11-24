@@ -1,7 +1,11 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { siteMetadata } from "./utils/metadata";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import { headers } from "next/headers";
+import { Language } from "./utils/getTranslations";
 import "./globals.css";
+import { languageConfig } from "./i18n/config";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -16,13 +20,17 @@ const geistMono = localFont({
 
 export const metadata: Metadata = siteMetadata;
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const headersList = await headers();
+  const cookies = headersList.get("cookie") || "";
+  const lang = (cookies.match(/NEXT_LOCALE=([^;]+)/)?.[1] || "en") as Language;
+  const dir = languageConfig[lang].dir;
   return (
-    <html lang="en">
+    <html lang={lang} dir={dir}>
       <head>
         {/* Structured Data for Rich Results */}
         <script
@@ -65,7 +73,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
   );

@@ -1,19 +1,36 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import { saveAs } from "file-saver";
 import { Button } from "./Button";
 import { MarkdownPreview } from "./MarkdownPreview";
-import { ThemeToggle } from "./ThemeToggle";
 import { convertToDocx } from "../utils/markdownUtils";
 import { FileUpload } from "./FileUpload";
-import { ExamplesMenu } from "./ExamplesMenu";
 
 export function MarkdownConverter() {
   const [markdown, setMarkdown] = useState("");
   const [isConverting, setIsConverting] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const handleSetMarkdown = (event: CustomEvent<string>) => {
+      setMarkdown(event.detail);
+    };
+
+    const element = document.querySelector("[data-markdown-converter]");
+    element?.addEventListener(
+      "setMarkdown",
+      handleSetMarkdown as EventListener
+    );
+
+    return () => {
+      element?.removeEventListener(
+        "setMarkdown",
+        handleSetMarkdown as EventListener
+      );
+    };
+  }, []);
 
   const handleFileContent = (content: string) => {
     setMarkdown(content);
@@ -38,14 +55,13 @@ export function MarkdownConverter() {
   };
 
   return (
-    <div className="w-full max-w-7xl mx-auto p-4 space-y-4">
+    <div
+      data-markdown-converter
+      className="w-full max-w-7xl mx-auto p-4 space-y-4"
+    >
       <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-4">
         <div className="flex flex-wrap gap-4">
           <FileUpload onFileContent={handleFileContent} />
-          <ExamplesMenu onSelectExample={setMarkdown} />
-        </div>
-        <div className="sm:ml-auto">
-          <ThemeToggle />
         </div>
       </div>
 
