@@ -1,3 +1,5 @@
+"use client";
+
 import { useLanguage } from "../contexts/LanguageContext";
 import { getTranslations } from "../utils/getTranslations";
 

@@ -65,7 +65,7 @@ export function MarkdownConverter() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[60vh]">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 h-[60vh] grid-flow-row [direction:ltr]">
         <div className="border border-secondary/20 rounded-lg overflow-hidden">
           <Editor
             height="100%"

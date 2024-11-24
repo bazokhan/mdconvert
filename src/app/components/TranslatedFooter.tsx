@@ -1,3 +1,5 @@
+"use client";
+
 import { useLanguage } from "../contexts/LanguageContext";
 import { createMailtoLink } from "../utils/contact";
 import { getTranslations } from "../utils/getTranslations";
