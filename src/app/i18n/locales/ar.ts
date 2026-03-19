@@ -7,6 +7,8 @@ export default {
     examples: "أمثلة",
     clear: "مسح",
     download: "تحميل DOCX",
+    showPreview: "إظهار المعاينة",
+    hidePreview: "إخفاء المعاينة",
     converting: "يتم التحويل...",
     reportBug: "الإبلاغ عن مشكلة",
     requestFeature: "طلب ميزة",
@@ -14,37 +16,37 @@ export default {
   features: {
     title: "لماذا اخترنا محولنا؟",
     formatting: {
-      title: "✨ تنسيق مثالي",
+      title: "تنسيق مثالي",
       description:
         "يحفظ جميع أنواع العناوين والجداول والقوائم والتنسيق بالضبط.",
     },
     privacy: {
-      title: "🔒 خصوصية الأولى",
+      title: "خصوصية الأولى",
       description: "يعمل بشكل مستقل بالكامل. سيكون جميع ملفاتك على جهازك.",
     },
     smart: {
-      title: "💡 الميزات الذكية",
+      title: "الميزات الذكية",
       description: "معاينة حية، وضع مظلم، وسحب وإسقاط، وأمثلة النماذج مضمنة.",
     },
     darkMode: {
-      title: "🌓 وضع مظلم",
+      title: "وضع مظلم",
       description: "يدعم وضع مظلم للقراءة في الأضواء المنخفضة.",
     },
     dragAndDrop: {
-      title: "💾 سحب وإسقاط",
+      title: "سحب وإسقاط",
       description: "يدعم سحب وإسقاط للتحميل بأسهل طريقة.",
     },
     examples: {
-      title: "📄 أمثلة النماذج",
+      title: "أمثلة النماذج",
       description: "يشمل أمثلة النماذج للحصول على معلومات أساسية.",
     },
     speed: {
-      title: "🚀 سريع وموثوق",
+      title: "سريع وموثوق",
       description:
         "أسرع وأكثر موثوقية من أداة تحويل الماركداون إلى ملفات Word.",
     },
     free: {
-      title: "💰 مجاني إلى الأبد",
+      title: "مجاني إلى الأبد",
       description:
         "لا يتطلب تسجيل الدخول. فقط قم بتحميل ملف الماركداون الخاص بك وقم بالتحويل في اللحظة الأولى.",
     },
@@ -52,6 +54,18 @@ export default {
   footer: {
     description: "مشغل بواسطة Trugraph",
     developedBy: "مطور بواسطة Trugraph",
+  },
+  shortcuts: {
+    title: "اختصارات لوحة المفاتيح",
+    download: "تحميل DOCX",
+    clear: "مسح المحرر",
+    copyHtml: "نسخ بتنسيق HTML",
+    openFile: "فتح ملف",
+    toggleTheme: "تبديل المظهر",
+    togglePreview: "تبديل المعاينة",
+    openExamples: "فتح الأمثلة",
+    showShortcuts: "إظهار الاختصارات",
+    forShortcuts: "? للاختصارات",
   },
   faq: {
     title: "أسئلة متكررة",

@@ -10,9 +10,11 @@ export default async function Home() {
     <ThemeProvider>
       <div className="min-h-screen bg-background">
         <Navbar />
-        <main className="container mx-auto py-8 px-4">
-          <TranslatedHeader />
-          <MarkdownConverter />
+        <main className="min-h-[calc(100vh-4rem)]">
+          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
+            <TranslatedHeader />
+            <MarkdownConverter />
+          </div>
           <TranslatedContent />
         </main>
         <TranslatedFooter />

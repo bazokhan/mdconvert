@@ -7,6 +7,8 @@ export default {
     examples: "Ejemplos",
     clear: "Limpiar",
     download: "Descargar DOCX",
+    showPreview: "Mostrar vista previa",
+    hidePreview: "Ocultar vista previa",
     converting: "Convirtiendo...",
     reportBug: "Reportar Error",
     requestFeature: "Solicitar Función",
@@ -14,40 +16,40 @@ export default {
   features: {
     title: "¿Por qué elegir nuestro convertidor?",
     formatting: {
-      title: "✨ Formato Perfecto",
+      title: "Formato Perfecto",
       description:
         "Mantiene todos los estilos de encabezado, tablas, listas y formato exactamente como se pretende.",
     },
     privacy: {
-      title: "🔒 Privacidad Primero",
+      title: "Privacidad Primero",
       description:
         "Funciona completamente sin conexión. Tus documentos nunca salen de tu dispositivo.",
     },
     smart: {
-      title: "💡 Funciones Inteligentes",
+      title: "Funciones Inteligentes",
       description:
         "Vista previa en vivo, modo oscuro, arrastrar y soltar, y plantillas de ejemplo incluidas.",
     },
     darkMode: {
-      title: "🌓 Modo Oscuro",
+      title: "Modo Oscuro",
       description:
         "Soporta modo oscuro para mejor legibilidad en ambientes con poca luz.",
     },
     dragAndDrop: {
-      title: "💾 Arrastrar y Soltar",
+      title: "Arrastrar y Soltar",
       description:
         "Soporta arrastrar y soltar para subidas fáciles de archivos.",
     },
     examples: {
-      title: "📄 Plantillas de Ejemplo",
+      title: "Plantillas de Ejemplo",
       description: "Incluye plantillas de ejemplo para comenzar.",
     },
     speed: {
-      title: "🚀 Rápido y Confiable",
+      title: "Rápido y Confiable",
       description: "El convertidor de Markdown a DOCX más rápido y confiable.",
     },
     free: {
-      title: "💰 Gratis por Siempre",
+      title: "Gratis por Siempre",
       description:
         "No requiere registro. Solo sube tu archivo Markdown y convierte instantáneamente.",
     },
@@ -55,6 +57,18 @@ export default {
   footer: {
     description: "Impulsado por Trugraph",
     developedBy: "Desarrollado por Trugraph",
+  },
+  shortcuts: {
+    title: "Atajos de teclado",
+    download: "Descargar DOCX",
+    clear: "Borrar editor",
+    copyHtml: "Copiar como HTML formateado",
+    openFile: "Abrir archivo",
+    toggleTheme: "Cambiar tema",
+    togglePreview: "Alternar vista previa",
+    openExamples: "Abrir ejemplos",
+    showShortcuts: "Mostrar atajos",
+    forShortcuts: "? para atajos",
   },
   faq: {
     title: "Preguntas Frecuentes",

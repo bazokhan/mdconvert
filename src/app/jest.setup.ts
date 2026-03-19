@@ -10,12 +10,15 @@ global.ResizeObserver = jest.fn().mockImplementation(() => ({
 // Mock Monaco Editor
 jest.mock("@monaco-editor/react", () => ({
   __esModule: true,
-  default: jest.fn(() => null),
+  Editor: jest.fn(() => null),
 }));
 
 // Mock marked for consistent behavior
+const markedFn = jest.fn((text: string) => text);
+Object.assign(markedFn, { parse: markedFn });
 jest.mock("marked", () => ({
-  marked: jest.fn((text) => text),
+  marked: markedFn,
+  parse: markedFn,
   lexer: jest.fn(() => []),
 }));
 

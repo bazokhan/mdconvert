@@ -1,36 +1,74 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# md2docx
 
-## Getting Started
+**Markdown to Word in one click.** Paste, upload, or drop your .md file—get a Word document. No accounts, no cloud. Everything runs in your browser.
 
-First, run the development server:
+[![Live](https://img.shields.io/badge/demo-md2docx.trugraph.io-blue)](https://md2docx.trugraph.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+---
+
+## Features
+
+- **Perfect formatting** — Preserves headings, tables, lists, bold, italic, and code blocks in Word
+- **Privacy-first** — Works completely offline; your documents never leave your device
+- **11 languages** — Arabic, Chinese, English, Farsi, French, German, Hindi, Portuguese, Russian, Spanish, Urdu
+- **Dark mode** — Easy on the eyes in low-light environments
+- **Drag & drop** — Upload Markdown files or paste directly into the editor
+- **Live preview** — See your formatted document as you type
+- **Example templates** — Get started with Headings, Tables, Lists, Code blocks, and more
+- **Keyboard shortcuts** — Power-user friendly (e.g. Ctrl+S to download, ? for help)
+
+---
+
+## Quick Start
 
 ```bash
+git clone https://github.com/bazokhan/mdconvert.git
+cd mdconvert
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For analytics (optional), copy `example.env` to `.env` and add your `NEXT_PUBLIC_UMAMI_WEBSITE_ID`.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Usage
 
-To learn more about Next.js, take a look at the following resources:
+1. **Upload** a `.md` or `.txt` file, or **paste** Markdown into the editor
+2. **Preview** the formatted output in real time
+3. **Download** your document as DOCX with one click
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Tech Stack
 
-## Deploy on Vercel
+Next.js 15 · React 19 · Monaco Editor · [marked](https://marked.js.org/) · [docx](https://docx.js.org/) · Tailwind CSS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Development
+
+| Script | Description |
+|--------|-------------|
+| `npm run dev` | Start dev server (Turbopack) |
+| `npm run build` | Production build |
+| `npm run start` | Start production server |
+| `npm run lint` | Run ESLint |
+| `npm run test` | Run tests |
+| `npm run test:watch` | Run tests in watch mode |
+| `npm run test:coverage` | Run tests with coverage |
+
+---
+
+## Contributing
+
+- **Bug reports:** [Report a bug](mailto:admin@trugraph.io?subject=Bug%20Report%20-%20MD%20to%20DOCX%20Converter)
+- **Feature requests:** [Request a feature](mailto:admin@trugraph.io?subject=Feature%20Request%20-%20MD%20to%20DOCX%20Converter)
+
+---
+
+## License
+
+MIT © [Trugraph](https://trugraph.io)

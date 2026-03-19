@@ -6,6 +6,8 @@ export default {
     examples: "示例",
     clear: "清除",
     download: "下载 DOCX",
+    showPreview: "显示预览",
+    hidePreview: "隐藏预览",
     converting: "转换中...",
     reportBug: "报告问题",
     requestFeature: "请求功能",
@@ -13,41 +15,53 @@ export default {
   features: {
     title: "为什么选择我们的转换器？",
     formatting: {
-      title: "✨ 完美格式",
+      title: "完美格式",
       description: "完全保持所有标题样式、表格、列表和格式。",
     },
     privacy: {
-      title: "🔒 隐私优先",
+      title: "隐私优先",
       description: "完全离线工作。您的文档永远不会离开您的设备。",
     },
     smart: {
-      title: "💡 智能功能",
+      title: "智能功能",
       description: "实时预览、深色模式、拖放功能和示例模板。",
     },
     darkMode: {
-      title: "🌓 深色模式",
+      title: "深色模式",
       description: "支持深色模式，在低光环境下更易阅读。",
     },
     dragAndDrop: {
-      title: "💾 拖放功能",
+      title: "拖放功能",
       description: "支持拖放上传文件。",
     },
     examples: {
-      title: "📄 示例模板",
+      title: "示例模板",
       description: "包含示例模板帮助您开始。",
     },
     speed: {
-      title: "🚀 快速可靠",
+      title: "快速可靠",
       description: "最快速和最可靠的 Markdown 转 DOCX 转换器。",
     },
     free: {
-      title: "💰 永久免费",
+      title: "永久免费",
       description: "无需注册。只需上传您的 Markdown 文件即可立即转换。",
     },
   },
   footer: {
     description: "由 Trugraph 提供支持",
     developedBy: "由 Trugraph 开发",
+  },
+  shortcuts: {
+    title: "键盘快捷键",
+    download: "下载 DOCX",
+    clear: "清空编辑器",
+    copyHtml: "复制为格式化的 HTML",
+    openFile: "打开文件",
+    toggleTheme: "切换主题",
+    togglePreview: "切换预览",
+    openExamples: "打开示例",
+    showShortcuts: "显示快捷键",
+    forShortcuts: "? 显示快捷键",
   },
   faq: {
     title: "常见问题",

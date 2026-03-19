@@ -8,13 +8,13 @@ export function TranslatedHeader() {
   const t = getTranslations(language);
 
   return (
-    <>
-      <h1 className="text-3xl md:text-4xl font-bold text-center mb-4">
+    <header className="mb-10 text-center">
+      <h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl md:text-5xl">
         {t.title}
       </h1>
-      <p className="text-center text-lg mb-8 text-secondary max-w-2xl mx-auto">
+      <p className="mx-auto mt-4 max-w-2xl text-base text-muted sm:text-lg">
         {t.subtitle}
       </p>
-    </>
+    </header>
   );
 }

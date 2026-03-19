@@ -63,7 +63,7 @@ export function generateWordHtml(markdown: string): string {
         </style>
       </head>
       <body>
-        ${marked(markdown)}
+        ${marked.parse(markdown, { async: false }) as string}
       </body>
     </html>
   `;

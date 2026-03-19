@@ -7,6 +7,8 @@ export default {
     examples: "Exemples",
     clear: "Effacer",
     download: "Télécharger DOCX",
+    showPreview: "Afficher l'aperçu",
+    hidePreview: "Masquer l'aperçu",
     converting: "Conversion...",
     reportBug: "Signaler un Bug",
     requestFeature: "Demander une Fonctionnalité",
@@ -14,41 +16,41 @@ export default {
   features: {
     title: "Pourquoi choisir notre convertisseur ?",
     formatting: {
-      title: "✨ Formatage Parfait",
+      title: "Formatage Parfait",
       description:
         "Maintient tous les styles de titres, tableaux, listes et formatage exactement comme prévu.",
     },
     privacy: {
-      title: "🔒 Confidentialité d'Abord",
+      title: "Confidentialité d'Abord",
       description:
         "Fonctionne complètement hors ligne. Vos documents ne quittent jamais votre appareil.",
     },
     smart: {
-      title: "💡 Fonctionnalités Intelligentes",
+      title: "Fonctionnalités Intelligentes",
       description:
         "Aperçu en direct, mode sombre, glisser-déposer et modèles d'exemple inclus.",
     },
     darkMode: {
-      title: "🌓 Mode Sombre",
+      title: "Mode Sombre",
       description:
         "Prend en charge le mode sombre pour une meilleure lisibilité dans les environnements peu éclairés.",
     },
     dragAndDrop: {
-      title: "💾 Glisser-Déposer",
+      title: "Glisser-Déposer",
       description:
         "Prend en charge le glisser-déposer pour des téléchargements faciles.",
     },
     examples: {
-      title: "📄 Modèles d'Exemple",
+      title: "Modèles d'Exemple",
       description: "Inclut des modèles d'exemple pour vous aider à démarrer.",
     },
     speed: {
-      title: "🚀 Rapide et Fiable",
+      title: "Rapide et Fiable",
       description:
         "Le convertisseur Markdown vers DOCX le plus rapide et le plus fiable.",
     },
     free: {
-      title: "💰 Gratuit pour Toujours",
+      title: "Gratuit pour Toujours",
       description:
         "Pas d'inscription requise. Téléchargez simplement votre fichier Markdown et convertissez instantanément.",
     },
@@ -56,6 +58,18 @@ export default {
   footer: {
     description: "Propulsé par Trugraph",
     developedBy: "Développé par Trugraph",
+  },
+  shortcuts: {
+    title: "Raccourcis clavier",
+    download: "Télécharger DOCX",
+    clear: "Effacer l'éditeur",
+    copyHtml: "Copier en HTML formaté",
+    openFile: "Ouvrir un fichier",
+    toggleTheme: "Changer de thème",
+    togglePreview: "Basculer l'aperçu",
+    openExamples: "Ouvrir les exemples",
+    showShortcuts: "Afficher les raccourcis",
+    forShortcuts: "? pour les raccourcis",
   },
   faq: {
     title: "Questions Fréquemment Posées",

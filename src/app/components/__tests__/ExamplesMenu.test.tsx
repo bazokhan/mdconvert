@@ -2,6 +2,10 @@ import { render, screen, fireEvent } from "@testing-library/react";
 import { ExamplesMenu } from "../ExamplesMenu";
 import { markdownExamples } from "../../utils/markdownExamples";
 
+jest.mock("../../contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: "en", setLanguage: jest.fn() }),
+}));
+
 describe("ExamplesMenu", () => {
   const mockOnSelectExample = jest.fn();
 

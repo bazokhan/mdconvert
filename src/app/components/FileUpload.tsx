@@ -1,12 +1,13 @@
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "./Button";
 
 interface FileUploadProps {
   onFileContent: (content: string) => void;
+  onReady?: (open: () => void) => void;
 }
 
-export function FileUpload({ onFileContent }: FileUploadProps) {
+export function FileUpload({ onFileContent, onReady }: FileUploadProps) {
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
@@ -22,7 +23,7 @@ export function FileUpload({ onFileContent }: FileUploadProps) {
     [onFileContent]
   );
 
-  const { getRootProps, getInputProps, isDragActive } = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, open } = useDropzone({
     onDrop,
     accept: {
       "text/markdown": [".md", ".markdown"],
@@ -30,6 +31,10 @@ export function FileUpload({ onFileContent }: FileUploadProps) {
     },
     multiple: false,
   });
+
+  useEffect(() => {
+    onReady?.(open);
+  }, [open, onReady]);
 
   return (
     <div

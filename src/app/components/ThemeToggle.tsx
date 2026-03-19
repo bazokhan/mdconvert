@@ -1,22 +1,21 @@
 import { useTheme } from "../contexts/ThemeContext";
-import { Button } from "./Button";
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
 
   return (
-    <Button
+    <button
+      type="button"
       onClick={toggleTheme}
-      variant="secondary"
-      className="p-2"
+      className="rounded-md p-2 text-muted transition-colors hover:bg-muted/10 hover:text-foreground"
       aria-label="Toggle theme"
     >
       {theme === "dark" ? (
-        <SunIcon className="h-5 w-5" />
+        <SunIcon className="h-5 w-5" strokeWidth={1.5} />
       ) : (
-        <MoonIcon className="h-5 w-5" />
+        <MoonIcon className="h-5 w-5" strokeWidth={1.5} />
       )}
-    </Button>
+    </button>
   );
 }

@@ -1,5 +1,15 @@
 "use client";
 
+import {
+  Disclosure,
+  DisclosureButton,
+  DisclosurePanel,
+} from "@headlessui/react";
+import { ChevronDownIcon } from "@heroicons/react/24/outline";
+import {
+  BugAntIcon,
+  LightBulbIcon,
+} from "@heroicons/react/24/outline";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getTranslations } from "../utils/getTranslations";
 import { createMailtoLink } from "../utils/contact";
@@ -7,128 +17,80 @@ import { createMailtoLink } from "../utils/contact";
 export function TranslatedContent() {
   const { language } = useLanguage();
   const t = getTranslations(language);
+  const features = [
+    { title: t.features.formatting.title, desc: t.features.formatting.description },
+    { title: t.features.privacy.title, desc: t.features.privacy.description },
+    { title: t.features.smart.title, desc: t.features.smart.description },
+    { title: t.features.darkMode.title, desc: t.features.darkMode.description },
+    { title: t.features.dragAndDrop.title, desc: t.features.dragAndDrop.description },
+    { title: t.features.examples.title, desc: t.features.examples.description },
+    { title: t.features.speed.title, desc: t.features.speed.description },
+    { title: t.features.free.title, desc: t.features.free.description },
+  ];
+
+  const faqs = [
+    { q: t.faq.isThisConverterReallyFree, a: t.faq.isThisConverterReallyFreeDescription },
+    { q: t.faq.doINeedToCreateAnAccount, a: t.faq.doINeedToCreateAnAccountDescription },
+    { q: t.faq.doesItWorkOffline, a: t.faq.doesItWorkOfflineDescription },
+    { q: t.faq.whatFormattingIsPreserved, a: t.faq.whatFormattingIsPreservedDescription },
+  ];
 
   return (
-    <>
-      {/* Feedback Buttons */}
-      <div className="mt-8 flex justify-center gap-4">
-        <a
-          href={createMailtoLink("bug")}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 transition-colors"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+    <div className="border-t border-border bg-surface/50">
+      <div className="mx-auto max-w-6xl px-4 py-16 sm:px-6 lg:px-8">
+        <div className="flex justify-center gap-4">
+          <a
+            href={createMailtoLink("bug")}
+            className="inline-flex items-center gap-2 rounded-lg border border-border bg-background px-4 py-2 text-sm text-muted transition-colors hover:border-border-strong hover:text-foreground"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-            />
-          </svg>
-          {t.buttons.reportBug}
-        </a>
-        <a
-          href={createMailtoLink("feature")}
-          className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-primary hover:text-primary/80 transition-colors"
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
+            <BugAntIcon className="h-4 w-4" strokeWidth={1.5} />
+            {t.buttons.reportBug}
+          </a>
+          <a
+            href={createMailtoLink("feature")}
+            className="inline-flex items-center gap-2 rounded-lg bg-primary/10 px-4 py-2 text-sm text-primary transition-colors hover:bg-primary/15"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-            />
-          </svg>
-          {t.buttons.requestFeature}
-        </a>
-      </div>
+            <LightBulbIcon className="h-4 w-4" strokeWidth={1.5} />
+            {t.buttons.requestFeature}
+          </a>
+        </div>
 
-      {/* Competitive Advantages Section */}
-      <section className="mt-16 grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">
-            {t.features.formatting.title}
+        <section className="mt-16">
+          <h2 className="text-center text-xl font-semibold text-foreground">
+            {t.features.title}
           </h2>
-          <p className="text-secondary">{t.features.formatting.description}</p>
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">{t.features.privacy.title}</h2>
-          <p className="text-secondary">{t.features.privacy.description}</p>
-        </div>
-        <div className="space-y-2">
-          <h2 className="text-xl font-semibold">{t.features.smart.title}</h2>
-          <p className="text-secondary">{t.features.smart.description}</p>
-        </div>
-      </section>
+          <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {features.map((f, i) => (
+              <div
+                key={i}
+                className="rounded-xl border border-border bg-background p-5 transition-colors hover:border-border-strong"
+              >
+                <div className="font-medium text-foreground">{f.title}</div>
+                <p className="mt-2 text-sm leading-relaxed text-muted">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </section>
 
-      {/* Features List */}
-      <section className="mt-16 max-w-4xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8">
-          {t.features.title}
-        </h2>
-        <div className="grid md:grid-cols-2 gap-4">
-          {[
-            t.features.formatting.title,
-            t.features.privacy.title,
-            t.features.smart.title,
-            t.features.darkMode.title,
-            t.features.dragAndDrop.title,
-            t.features.examples.title,
-            t.features.speed.title,
-            t.features.free.title,
-          ].map((feature, index) => (
-            <div key={index} className="p-3 bg-secondary/5 rounded-lg">
-              {feature}
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* FAQ Section for SEO */}
-      <section className="mt-16 max-w-3xl mx-auto">
-        <h2 className="text-2xl font-bold text-center mb-8">{t.faq.title}</h2>
-        <div className="space-y-6">
-          <div>
-            <h3 className="font-semibold mb-2">
-              {t.faq.isThisConverterReallyFree}
-            </h3>
-            <p className="text-secondary">
-              {t.faq.isThisConverterReallyFreeDescription}
-            </p>
+        <section className="mt-16 max-w-2xl">
+          <h2 className="text-center text-xl font-semibold text-foreground">
+            {t.faq.title}
+          </h2>
+          <div className="mt-8 space-y-1">
+            {faqs.map((faq, i) => (
+              <Disclosure key={i} as="div" className="rounded-lg border border-border bg-background">
+                <DisclosureButton className="group flex w-full items-center justify-between gap-4 px-4 py-3 text-left transition-colors hover:bg-muted/5">
+                  <span className="text-sm font-medium text-foreground">{faq.q}</span>
+                  <ChevronDownIcon className="h-4 w-4 shrink-0 text-muted transition-transform group-data-[open]:rotate-180" strokeWidth={1.5} />
+                </DisclosureButton>
+                <DisclosurePanel className="border-t border-border px-4 py-3 text-sm leading-relaxed text-muted">
+                  {faq.a}
+                </DisclosurePanel>
+              </Disclosure>
+            ))}
           </div>
-          <div>
-            <h3 className="font-semibold mb-2">
-              {t.faq.doINeedToCreateAnAccount}
-            </h3>
-            <p className="text-secondary">
-              {t.faq.doINeedToCreateAnAccountDescription}
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-2">Does it work offline?</h3>
-            <p className="text-secondary">
-              {t.faq.doesItWorkOfflineDescription}
-            </p>
-          </div>
-          <div>
-            <h3 className="font-semibold mb-2">
-              {t.faq.whatFormattingIsPreserved}
-            </h3>
-            <p className="text-secondary">
-              {t.faq.whatFormattingIsPreservedDescription}
-            </p>
-          </div>
-        </div>
-      </section>
-    </>
+        </section>
+      </div>
+    </div>
   );
 }

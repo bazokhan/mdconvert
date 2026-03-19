@@ -1,73 +1,90 @@
 export default {
-  title: "Convert Markdown to Word Documents Online",
+  title: "Markdown to Word in one click",
   subtitle:
-    "Free online tool to convert Markdown to perfectly formatted Word documents. No signup required, works offline, and preserves all formatting.",
+    "Paste, upload, or drop your .md file. Get a Word document. No accounts, no uploads to our servers—everything runs in your browser.",
   buttons: {
     upload: "Upload Markdown",
     examples: "Examples",
     clear: "Clear",
     download: "Download DOCX",
+    showPreview: "Show Preview",
+    hidePreview: "Hide Preview",
     converting: "Converting...",
     reportBug: "Report Bug",
     requestFeature: "Request Feature",
   },
   features: {
-    title: "Why Choose Our Converter?",
+    title: "What you get",
     formatting: {
-      title: "✨ Perfect Formatting",
+      title: "Formatting that sticks",
       description:
-        "Maintains all heading styles, tables, lists, and formatting exactly as intended.",
+        "Headings, tables, lists, bold, italic—all carried over into Word without a hitch.",
     },
     privacy: {
-      title: "🔒 Privacy First",
+      title: "Stays on your machine",
       description:
-        "Works completely offline. Your documents never leave your device.",
+        "Conversion happens in your browser. Your files never touch our servers.",
     },
     smart: {
-      title: "💡 Smart Features",
+      title: "Built for writers",
       description:
-        "Live preview, dark mode, drag & drop, and example templates included.",
+        "Live preview, syntax highlighting, templates, and shortcuts so you can stay in flow.",
     },
     darkMode: {
-      title: "🌓 Dark Mode",
+      title: "Dark mode",
       description:
-        "Supports dark mode for better readability in low-light environments.",
+        "Easy on the eyes when you're working late.",
     },
     dragAndDrop: {
-      title: "💾 Drag & Drop",
-      description: "Supports drag & drop for easy file uploads.",
+      title: "Drag and drop",
+      description:
+        "Drop a .md file onto the editor. Done.",
     },
     examples: {
-      title: "📄 Example Templates",
-      description: "Includes example templates to get you started.",
+      title: "Starter templates",
+      description:
+        "Quick-start examples for tables, lists, code blocks, and more.",
     },
     speed: {
-      title: "🚀 Fast and Reliable",
-      description: "The fastest and most reliable Markdown to DOCX converter.",
+      title: "Fast",
+      description:
+        "No waiting in line. Convert as often as you like.",
     },
     free: {
-      title: "💰 Free Forever",
+      title: "Free",
       description:
-        "No registration required. Just upload your Markdown file and convert instantly.",
+        "No paywalls, no signup. Use it whenever you need it.",
     },
   },
   footer: {
-    description: "Powered by Trugraph",
-    developedBy: "Developed by Trugraph",
+    description: "md2docx by Trugraph",
+    developedBy: "Trugraph",
+  },
+  shortcuts: {
+    title: "Keyboard Shortcuts",
+    download: "Download DOCX",
+    clear: "Clear editor",
+    copyHtml: "Copy as formatted HTML",
+    openFile: "Open file",
+    toggleTheme: "Toggle theme",
+    togglePreview: "Toggle preview",
+    openExamples: "Open examples",
+    showShortcuts: "Show shortcuts",
+    forShortcuts: "? for shortcuts",
   },
   faq: {
-    title: "Frequently Asked Questions",
-    doINeedToCreateAnAccount: "Do I need to create an account?",
+    title: "Questions",
+    doINeedToCreateAnAccount: "Do I need an account?",
     doINeedToCreateAnAccountDescription:
-      "No, you don't need to create an account. You can use the tool completely offline.",
+      "No. Open the site, paste or upload your Markdown, and download. No signup.",
     doesItWorkOffline: "Does it work offline?",
     doesItWorkOfflineDescription:
-      "Yes, the tool works completely offline. Your documents never leave your device.",
-    whatFormattingIsPreserved: "What formatting is preserved?",
+      "Yes. Once the page is loaded, conversion runs entirely in your browser. No internet needed after that.",
+    whatFormattingIsPreserved: "What carries over to Word?",
     whatFormattingIsPreservedDescription:
-      "All heading styles, tables, lists, and formatting are preserved exactly as intended.",
-    isThisConverterReallyFree: "Is this converter really free?",
+      "Headings (H1–H6), bold and italic, tables, ordered and unordered lists, blockquotes, and inline code. The basics, done right.",
+    isThisConverterReallyFree: "Is it actually free?",
     isThisConverterReallyFreeDescription:
-      "Yes, it is completely free. No registration required. Just upload your Markdown file and convert instantly.",
+      "Yes. No trials, no limits. Use it as much as you want.",
   },
 } as const;

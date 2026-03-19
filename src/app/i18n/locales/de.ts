@@ -6,6 +6,8 @@ export default {
     examples: "Beispiele",
     clear: "Löschen",
     download: "DOCX Herunterladen",
+    showPreview: "Vorschau anzeigen",
+    hidePreview: "Vorschau ausblenden",
     converting: "Konvertiere...",
     reportBug: "Fehler Melden",
     requestFeature: "Funktion Vorschlagen",
@@ -13,41 +15,53 @@ export default {
   features: {
     title: "Warum wählen Sie uns?",
     formatting: {
-      title: "✨ Perfekte Formatierung",
+      title: "Perfekte Formatierung",
       description: "Behält alle Überschriftenstile, Tabellen, Listen und Formatierungen genau wie beabsichtigt bei.",
     },
     privacy: {
-      title: "🔒 Datenschutz Zuerst",
+      title: "Datenschutz Zuerst",
       description: "Funktioniert komplett offline. Ihre Dokumente verlassen nie Ihr Gerät.",
     },
     smart: {
-      title: "💡 Intelligente Funktionen",
+      title: "Intelligente Funktionen",
       description: "Live-Vorschau, Dunkelmodus, Drag & Drop und Beispielvorlagen inklusive.",
     },
     darkMode: {
-      title: "🌓 Dunkelmodus",
+      title: "Dunkelmodus",
       description: "Unterstützt Dunkelmodus für bessere Lesbarkeit bei wenig Licht.",
     },
     dragAndDrop: {
-      title: "💾 Drag & Drop",
+      title: "Drag & Drop",
       description: "Unterstützt Drag & Drop für einfaches Hochladen.",
     },
     examples: {
-      title: "📄 Beispielvorlagen",
+      title: "Beispielvorlagen",
       description: "Enthält Beispielvorlagen zum Einstieg.",
     },
     speed: {
-      title: "🚀 Schnell und Zuverlässig",
+      title: "Schnell und Zuverlässig",
       description: "Der schnellste und zuverlässigste Markdown-zu-DOCX-Konverter.",
     },
     free: {
-      title: "💰 Für Immer Kostenlos",
+      title: "Für Immer Kostenlos",
       description: "Keine Registrierung erforderlich. Laden Sie einfach Ihre Markdown-Datei hoch und konvertieren Sie sofort.",
     },
   },
   footer: {
     description: "Betrieben von Trugraph",
     developedBy: "Entwickelt von Trugraph",
+  },
+  shortcuts: {
+    title: "Tastenkürzel",
+    download: "DOCX herunterladen",
+    clear: "Editor leeren",
+    copyHtml: "Als formatiertes HTML kopieren",
+    openFile: "Datei öffnen",
+    toggleTheme: "Design wechseln",
+    togglePreview: "Vorschau umschalten",
+    openExamples: "Beispiele öffnen",
+    showShortcuts: "Tastenkürzel anzeigen",
+    forShortcuts: "? für Tastenkürzel",
   },
   faq: {
     title: "Häufig gestellte Fragen",

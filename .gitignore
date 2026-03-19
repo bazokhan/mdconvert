@@ -23,6 +23,31 @@
 # misc
 .DS_Store
 *.pem
+Thumbs.db
+*.swp
+*.swo
+.Spotlight-V100
+.Trashes
+
+# IDE
+.idea/
+.vscode/
+
+# logs
+*.log
+logs/
+
+# temporary
+*.tmp
+*.temp
+.cache/
+
+# build artifacts
+dist/
+
+# test / coverage
+.nyc_output/
+jest-results.json
 
 # debug
 npm-debug.log*
