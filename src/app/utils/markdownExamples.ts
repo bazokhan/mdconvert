@@ -98,26 +98,25 @@ print(result)
 \`\`\``,
   },
   {
-    title: "Advanced Formatting",
-    description: "Subscript, superscript, and more",
-    markdown: `H~2~O - Subscript
-X^2^ - Superscript
+    title: "Blockquotes and horizontal rules",
+    description: "Quotes, code blocks, and dividers that render in Word",
+    markdown: `> This is a blockquote.
+> It can span multiple lines.
+> **Bold** and *italic* work inside.
 
-==Highlighted text==
+A horizontal rule below:
+---
 
-Definition list:
-Term 1
-: Definition 1
+And a code block:
 
-Term 2
-: Definition 2
+\`\`\`
+function greeting() {
+  return "Hello, World!";
+}
+\`\`\`
 
-Footnote reference[^1]
-[^1]: This is the footnote content.
-
-Abbreviation:
-*[HTML]: Hyper Text Markup Language
-The HTML specification is maintained by W3C.`,
+> Nested blockquote with \`inline code\`
+> and a [link](https://example.com).`,
   },
   {
     title: "Complete Example",

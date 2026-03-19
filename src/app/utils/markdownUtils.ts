@@ -1,4 +1,5 @@
 import { marked, Tokens } from "marked";
+import type { Token } from "marked";
 import {
   Document,
   Packer,
@@ -9,6 +10,7 @@ import {
   TableCell,
   BorderStyle,
   TextRun,
+  ExternalHyperlink,
 } from "docx";
 
 // Configure marked renderer for Word-compatible HTML
@@ -69,25 +71,222 @@ export function generateWordHtml(markdown: string): string {
   `;
 }
 
-// Helper function to parse text and create TextRun elements
-function createTextRuns(text: string): TextRun[] {
-  // Split the text by bold markers
-  const parts = text.split(/(\*\*.*?\*\*)/g);
+type ParagraphChild = TextRun | InstanceType<typeof ExternalHyperlink>;
 
-  return parts.map((part) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      // Remove the ** markers and create bold text
-      return new TextRun({
-        text: part.slice(2, -2),
-        bold: true,
-      });
-    } else {
-      // Regular text
-      return new TextRun({
-        text: part,
-      });
+/** Get plain text from an inline token (for link text, etc.) */
+function getPlainTextFromToken(t: Token): string {
+  if ("text" in t && typeof (t as { text?: string }).text === "string")
+    return (t as { text: string }).text;
+  if ("tokens" in t && Array.isArray((t as { tokens?: Token[] }).tokens)) {
+    return (t as { tokens: Token[] }).tokens
+      .map(getPlainTextFromToken)
+      .join("");
+  }
+  return "";
+}
+
+/** Convert marked inline tokens to docx Paragraph children (TextRun, ExternalHyperlink) */
+function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
+  const runs: ParagraphChild[] = [];
+  for (const t of tokens) {
+    switch (t.type) {
+      case "text":
+        if ("text" in t && t.text) {
+          runs.push(new TextRun({ text: t.text }));
+        }
+        break;
+      case "strong":
+        runs.push(
+          new TextRun({
+            text: getPlainTextFromToken(t),
+            bold: true,
+          })
+        );
+        break;
+      case "em":
+        runs.push(
+          new TextRun({
+            text: getPlainTextFromToken(t),
+            italics: true,
+          })
+        );
+        break;
+      case "codespan":
+        if ("text" in t && t.text) {
+          runs.push(
+            new TextRun({
+              text: t.text,
+              font: "Consolas",
+              shading: { fill: "F5F5F5" },
+            })
+          );
+        }
+        break;
+      case "del":
+        runs.push(
+          new TextRun({
+            text: getPlainTextFromToken(t),
+            strike: true,
+          })
+        );
+        break;
+      case "link":
+        runs.push(
+          new ExternalHyperlink({
+            children: [
+              new TextRun({
+                text: getPlainTextFromToken(t) || (t as Tokens.Link).href,
+              }),
+            ],
+            link: (t as Tokens.Link).href,
+          })
+        );
+        break;
+      case "br":
+        runs.push(new TextRun({ break: 1 }));
+        break;
+      case "image":
+        // Images: use alt text as placeholder in Word
+        runs.push(
+          new TextRun({
+            text: `[${(t as Tokens.Image).text || "Image"}]`,
+            italics: true,
+          })
+        );
+        break;
+      default:
+        runs.push(new TextRun({ text: getPlainTextFromToken(t) }));
     }
-  });
+  }
+  return runs;
+}
+
+/** Create paragraph children from block token text, using inline tokens when available */
+function createRunsForBlock(
+  text: string,
+  inlineTokens?: Token[]
+): ParagraphChild[] {
+  if (inlineTokens && inlineTokens.length > 0) {
+    return inlineTokensToRuns(inlineTokens);
+  }
+  // Fallback: regex for **bold** and *italic*
+  const runs: ParagraphChild[] = [];
+  const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|~~[^~]+~~|`[^`]+`)/g;
+  let lastIndex = 0;
+  let m: RegExpExecArray | null;
+  while ((m = regex.exec(text)) !== null) {
+    if (m.index > lastIndex) {
+      runs.push(new TextRun({ text: text.slice(lastIndex, m.index) }));
+    }
+    const seg = m[1];
+    if (seg.startsWith("**") && seg.endsWith("**")) {
+      runs.push(new TextRun({ text: seg.slice(2, -2), bold: true }));
+    } else if (seg.startsWith("*") && seg.endsWith("*")) {
+      runs.push(new TextRun({ text: seg.slice(1, -1), italics: true }));
+    } else if (seg.startsWith("~~") && seg.endsWith("~~")) {
+      runs.push(new TextRun({ text: seg.slice(2, -2), strike: true }));
+    } else if (seg.startsWith("`") && seg.endsWith("`")) {
+      runs.push(
+        new TextRun({
+          text: seg.slice(1, -1),
+          font: "Consolas",
+          shading: { fill: "F5F5F5" },
+        })
+      );
+    } else {
+      runs.push(new TextRun({ text: seg }));
+    }
+    lastIndex = m.index + seg.length;
+  }
+  if (lastIndex < text.length) {
+    runs.push(new TextRun({ text: text.slice(lastIndex) }));
+  }
+  return runs.length > 0 ? runs : [new TextRun({ text })];
+}
+
+/** Process blockquote: render inner blocks recursively */
+function processBlockquote(quoteToken: Tokens.Blockquote): (Paragraph | Table)[] {
+  const inner: (Paragraph | Table)[] = [];
+  for (const t of quoteToken.tokens) {
+    if (t.type === "paragraph") {
+      inner.push(
+        new Paragraph({
+          children: createRunsForBlock(t.text, t.tokens),
+          indent: { left: 720 },
+        })
+      );
+    } else if (t.type === "heading") {
+      inner.push(
+        new Paragraph({
+          children: createRunsForBlock(t.text, t.tokens),
+          heading:
+            HeadingLevel[`HEADING_${t.depth}` as keyof typeof HeadingLevel],
+          style: `Heading${t.depth}`,
+          indent: { left: 720 },
+        })
+      );
+    } else if (t.type === "list") {
+      inner.push(...processListItems((t as Tokens.List).items, 0, 720));
+    } else if (t.type === "code") {
+      inner.push(
+        new Paragraph({
+          children: [
+            new TextRun({
+              text: (t as Tokens.Code).text,
+              font: "Consolas",
+              shading: { fill: "F5F5F5" },
+            }),
+          ],
+          shading: { fill: "F5F5F5" },
+          indent: { left: 720 },
+        })
+      );
+    }
+  }
+  return inner;
+}
+
+/** Get item content: first paragraph/text block's content, or fallback to item text */
+function getListItemContent(item: Tokens.ListItem): ParagraphChild[] {
+  const blockTokens = "tokens" in item ? (item as { tokens?: Token[] }).tokens : undefined;
+  if (blockTokens?.length) {
+    const first = blockTokens[0];
+    if (first && (first.type === "paragraph" || first.type === "text")) {
+      const text = (first as { text: string }).text;
+      const inlineTokens = "tokens" in first ? (first as { tokens?: Token[] }).tokens : undefined;
+      return createRunsForBlock(text, inlineTokens);
+    }
+  }
+  return createRunsForBlock(item.text);
+}
+
+/** Process list items recursively, including nested lists */
+function processListItems(
+  items: Tokens.ListItem[],
+  level: number,
+  indentLeft?: number
+): (Paragraph | Table)[] {
+  const result: (Paragraph | Table)[] = [];
+  for (const item of items) {
+    result.push(
+      new Paragraph({
+        children: getListItemContent(item),
+        bullet: { level },
+        indent: indentLeft !== undefined ? { left: indentLeft } : undefined,
+      })
+    );
+    const blockTokens = "tokens" in item ? (item as { tokens?: Token[] }).tokens : undefined;
+    if (blockTokens) {
+      for (const t of blockTokens) {
+        if (t.type === "list") {
+          result.push(
+            ...processListItems((t as Tokens.List).items, level + 1, indentLeft)
+          );
+        }
+      }
+    }
+  }
+  return result;
 }
 
 // Convert markdown to DOCX document
@@ -101,7 +300,7 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
       case "heading":
         docElements.push(
           new Paragraph({
-            children: createTextRuns(token.text),
+            children: createRunsForBlock(token.text, token.tokens),
             heading:
               HeadingLevel[
                 `HEADING_${token.depth}` as keyof typeof HeadingLevel
@@ -114,22 +313,36 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
       case "paragraph":
         docElements.push(
           new Paragraph({
-            children: createTextRuns(token.text),
+            children: createRunsForBlock(token.text, token.tokens),
           })
         );
         break;
 
+      case "blockquote":
+        docElements.push(...processBlockquote(token as Tokens.Blockquote));
+        break;
+
+      case "code":
+        docElements.push(
+          new Paragraph({
+            children: [
+              new TextRun({
+                text: (token as Tokens.Code).text,
+                font: "Consolas",
+                shading: { fill: "F5F5F5" },
+              }),
+            ],
+            shading: { fill: "F5F5F5" },
+          })
+        );
+        break;
+
+      case "hr":
+        docElements.push(new Paragraph({ thematicBreak: true }));
+        break;
+
       case "list":
-        token.items.forEach((item: Tokens.ListItem) => {
-          docElements.push(
-            new Paragraph({
-              children: createTextRuns(item.text),
-              bullet: {
-                level: 0,
-              },
-            })
-          );
-        });
+        docElements.push(...processListItems(token.items, 0));
         break;
 
       case "table":
@@ -140,7 +353,7 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
                 new TableCell({
                   children: [
                     new Paragraph({
-                      children: createTextRuns(cell.text),
+                      children: createRunsForBlock(cell.text, cell.tokens),
                     }),
                   ],
                   borders: {
@@ -157,7 +370,7 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
                     new TableCell({
                       children: [
                         new Paragraph({
-                          children: createTextRuns(cell.text),
+                          children: createRunsForBlock(cell.text, cell.tokens),
                         }),
                       ],
                     })

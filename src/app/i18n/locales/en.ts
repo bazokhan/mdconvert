@@ -14,46 +14,46 @@ export default {
     requestFeature: "Request Feature",
   },
   features: {
-    title: "What you get",
+    title: "Why md2docx",
     formatting: {
-      title: "Formatting that sticks",
+      title: "Full Markdown to Word support",
       description:
-        "Headings, tables, lists, bold, italic—all carried over into Word without a hitch.",
+        "Headings (H1–H6), tables, ordered and unordered lists, blockquotes, and code blocks convert cleanly to Word styles. No manual reformatting.",
     },
     privacy: {
-      title: "Stays on your machine",
+      title: "Client-side conversion only",
       description:
-        "Conversion happens in your browser. Your files never touch our servers.",
+        "Conversion runs entirely in your browser. Your Markdown never uploads to any server—ideal for sensitive or confidential documents.",
     },
     smart: {
-      title: "Built for writers",
+      title: "Live preview and templates",
       description:
-        "Live preview, syntax highlighting, templates, and shortcuts so you can stay in flow.",
+        "See the Word-style result as you type. Syntax highlighting and starter templates for tables, lists, and common document patterns.",
     },
     darkMode: {
-      title: "Dark mode",
+      title: "Dark and light themes",
       description:
-        "Easy on the eyes when you're working late.",
+        "Reduce eye strain with a dark theme. Toggle any time—preference applies to both editor and preview.",
     },
     dragAndDrop: {
-      title: "Drag and drop",
+      title: "Drag-and-drop .md files",
       description:
-        "Drop a .md file onto the editor. Done.",
+        "Open Markdown files by dragging them onto the editor. Works with .md, .markdown, and plain text. No file dialogs required.",
     },
     examples: {
-      title: "Starter templates",
+      title: "Built-in Markdown examples",
       description:
-        "Quick-start examples for tables, lists, code blocks, and more.",
+        "One-click samples for tables, lists, code blocks, headings, and formatting. Jump-start any document or learn Markdown syntax.",
     },
     speed: {
-      title: "Fast",
+      title: "Instant DOCX conversion",
       description:
-        "No waiting in line. Convert as often as you like.",
+        "No queues, no server round-trips. Convert as often as you like. Multi-megabyte docs process in seconds.",
     },
     free: {
-      title: "Free",
+      title: "Unlimited and free",
       description:
-        "No paywalls, no signup. Use it whenever you need it.",
+        "No signup, no paywalls, no usage caps. Free for personal and commercial use. No account required.",
     },
   },
   footer: {

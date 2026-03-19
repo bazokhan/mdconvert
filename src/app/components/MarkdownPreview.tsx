@@ -69,6 +69,7 @@ export const MarkdownPreview = forwardRef<MarkdownPreviewHandle, MarkdownPreview
             prose-strong:!text-foreground prose-strong:font-semibold
             prose-ul:!text-foreground prose-ul:my-3 prose-ol:!text-foreground prose-ol:my-3
             prose-li:!text-foreground prose-li:my-0.5
+            [&_li_ul]:pl-6 [&_li_ol]:pl-6 [&_li_ul]:mt-1 [&_li_ol]:mt-1
             prose-blockquote:!text-foreground prose-blockquote:border-l-primary prose-blockquote:border-l-2 prose-blockquote:pl-4 prose-blockquote:italic
             prose-code:!text-foreground prose-code:bg-muted/20 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-[0.9em] prose-code:before:content-none prose-code:after:content-none
             prose-pre:!bg-muted/10 prose-pre:border prose-pre:border-border prose-pre:rounded-lg prose-pre:px-4
