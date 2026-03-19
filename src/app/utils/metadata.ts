@@ -13,11 +13,11 @@ export const viewport: Viewport = {
 export const siteMetadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "md2docx - Markdown to Word in one click",
+    default: "md2docx - Free Online Markdown to Word Document Converter",
     template: "%s | md2docx",
   },
   description:
-    "Paste, upload, or drop your .md file. Get a Word document. No accounts, no uploads to our servers—everything runs in your browser. Free, fast, privacy-first.",
+    "Free online Markdown to DOCX converter. Convert MD files to Word documents instantly. Preserves formatting, headings, tables, and lists. No signup required, works offline, and free forever.",
   keywords: [
     "markdown to word",
     "md to docx",
@@ -28,9 +28,14 @@ export const siteMetadata: Metadata = {
     "online markdown converter",
     "free markdown converter",
     "convert markdown to word",
+    "markdown to doc",
     "markdown editor",
     "md editor",
+    "table converter",
     "offline markdown converter",
+    "preserve formatting",
+    "heading styles",
+    "markdown table to word",
     "browser markdown converter",
     "privacy markdown converter",
   ],
@@ -50,9 +55,9 @@ export const siteMetadata: Metadata = {
     locale: "en_US",
     url: baseUrl,
     siteName: "md2docx",
-    title: "md2docx - Markdown to Word in one click",
+    title: "md2docx - Convert Markdown to Word Documents Online - Free & Easy",
     description:
-      "Paste, upload, or drop your .md file. Get a Word document. No accounts, no cloud. Everything runs in your browser.",
+      "Free online Markdown to DOCX converter. Preserve all formatting, including tables, headings, and lists. No account needed, works offline, unlimited conversions.",
     images: [
       {
         url: `${baseUrl}/og-image.png`,
@@ -64,9 +69,9 @@ export const siteMetadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "md2docx - Markdown to Word in one click",
+    title: "md2docx - Convert Markdown to Word Documents - Free Online Tool",
     description:
-      "Paste, upload, or drop your .md file. Get a Word document. No accounts, no cloud. Everything runs in your browser.",
+      "Transform Markdown files to perfectly formatted Word documents. Preserve all styling, tables, and lists. No registration required.",
     images: [`${baseUrl}/og-image.png`],
     creator: "@trugraph",
   },
