@@ -1,21 +1,23 @@
-# md2docx
+# Markdown Converter
 
-**Markdown to Word in one click.** Paste, upload, or drop your .md file—get a Word document. No accounts, no cloud. Everything runs in your browser.
+**Markdown → Word, PDF, HTML, TXT in your browser.** Paste, upload, or drop your `.md` file — convert in one click. No accounts, no cloud, no uploads. Everything runs locally. Free, installable PWA.
 
-[![Live](https://img.shields.io/badge/demo-md2docx.trugraph.io-blue)](https://md2docx.trugraph.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Live](https://img.shields.io/badge/demo-markdown.trugraph.io-blue)](https://markdown.trugraph.io) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
 
 ## Features
 
-- **Perfect formatting** — Preserves headings, tables, lists, bold, italic, and code blocks in Word
-- **Privacy-first** — Works completely offline; your documents never leave your device
-- **11 languages** — Arabic, Chinese, English, Farsi, French, German, Hindi, Portuguese, Russian, Spanish, Urdu
-- **Dark mode** — Easy on the eyes in low-light environments
-- **Drag & drop** — Upload Markdown files or paste directly into the editor
-- **Live preview** — See your formatted document as you type
-- **Example templates** — Get started with Headings, Tables, Lists, Code blocks, and more
-- **Keyboard shortcuts** — Power-user friendly (e.g. Ctrl+S to download, ? for help)
+- **Multiple export formats** — DOCX (Word), PDF (browser Save as PDF), standalone HTML, plain TXT, and rich-text clipboard paste for Gmail, Docs, Slack, Notion
+- **Markdown lint** — catch unbalanced code fences, bare URLs, missing alt text, etc.
+- **Privacy-first** — runs 100% in your browser; nothing uploads, ever
+- **Installable PWA** — install on any device, works offline
+- **11 languages** — Arabic, Chinese, English, Farsi, French, German, Hindi, Portuguese, Russian, Spanish, Urdu (RTL supported)
+- **Dark + light themes**
+- **Drag & drop** — drop a `.md` file anywhere on the page
+- **Live preview**
+- **Built-in examples** — Headings, Tables, Lists, Code blocks, etc.
+- **Keyboard shortcuts** — `Ctrl+S` download, `Ctrl+Shift+F` cycle format, `?` for help
 
 ---
 
@@ -32,40 +34,50 @@ Open [http://localhost:3000](http://localhost:3000).
 
 For analytics (optional), copy `example.env` to `.env` and add your `NEXT_PUBLIC_UMAMI_WEBSITE_ID`.
 
----
+To regenerate PWA icons / OG image:
 
-## Usage
-
-1. **Upload** a `.md` or `.txt` file, or **paste** Markdown into the editor
-2. **Preview** the formatted output in real time
-3. **Download** your document as DOCX with one click
+```bash
+node scripts/gen-icons.mjs
+```
 
 ---
 
 ## Tech Stack
 
-Next.js 15 · React 19 · Monaco Editor · [marked](https://marked.js.org/) · [docx](https://docx.js.org/) · Tailwind CSS
+Next.js 15 · React 19 · Monaco Editor · [marked](https://marked.js.org/) · [docx](https://docx.js.org/) · Tailwind CSS · Headless UI
+
+---
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+| --- | --- |
+| `Ctrl+S` | Download (default format) |
+| `Ctrl+Shift+F` | Cycle default format |
+| `Ctrl+Shift+C` | Copy as formatted (HTML) |
+| `Ctrl+Shift+M` | Copy as Markdown |
+| `Ctrl+Shift+L` | Run lint |
+| `Ctrl+L` | Clear editor |
+| `Ctrl+O` | Open file |
+| `Ctrl+K` | Open examples |
+| `Ctrl+/` | Toggle preview |
+| `Ctrl+\`` | Toggle theme |
+| `?` | Show shortcuts |
+
+On macOS, replace `Ctrl` with `Cmd`.
 
 ---
 
 ## Development
 
 | Script | Description |
-|--------|-------------|
+| --- | --- |
 | `npm run dev` | Start dev server (Turbopack) |
 | `npm run build` | Production build |
 | `npm run start` | Start production server |
 | `npm run lint` | Run ESLint |
-| `npm run test` | Run tests |
-| `npm run test:watch` | Run tests in watch mode |
-| `npm run test:coverage` | Run tests with coverage |
-
----
-
-## Contributing
-
-- **Bug reports:** [Report a bug](mailto:admin@trugraph.io?subject=Bug%20Report%20-%20MD%20to%20DOCX%20Converter)
-- **Feature requests:** [Request a feature](mailto:admin@trugraph.io?subject=Feature%20Request%20-%20MD%20to%20DOCX%20Converter)
+| `npm run test` | Run Jest |
+| `node scripts/gen-icons.mjs` | Regenerate icons |
 
 ---
 

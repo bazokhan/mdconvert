@@ -1,3 +1,4 @@
+import { languageConfig, type Language } from "../i18n/config";
 import en from "../i18n/locales/en";
 import ar from "../i18n/locales/ar";
 import zh from "../i18n/locales/zh";
@@ -24,7 +25,10 @@ const translations = {
   ru,
 } as const;
 
-export type Language = keyof typeof translations;
+// Re-export the canonical Language type from i18n/config so we have one
+// source of truth.
+export type { Language };
+export { languageConfig };
 
 export function getTranslations(lang: Language = "en") {
   return translations[lang] || translations.en;

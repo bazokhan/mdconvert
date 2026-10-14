@@ -1,6 +1,10 @@
+"use client";
 import { useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
+import { ArrowUpTrayIcon } from "@heroicons/react/24/outline";
 import { Button } from "./Button";
+import { useLanguage } from "../contexts/LanguageContext";
+import { getTranslations } from "../utils/getTranslations";
 
 interface FileUploadProps {
   onFileContent: (content: string) => void;
@@ -8,6 +12,9 @@ interface FileUploadProps {
 }
 
 export function FileUpload({ onFileContent, onReady }: FileUploadProps) {
+  const { language } = useLanguage();
+  const t = getTranslations(language);
+
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
       const file = acceptedFiles[0];
@@ -39,39 +46,16 @@ export function FileUpload({ onFileContent, onReady }: FileUploadProps) {
   return (
     <div
       {...getRootProps()}
-      className={`
-        relative
-        w-full sm:w-auto
-        cursor-pointer
-        transition-all
-        ${isDragActive ? "scale-105" : ""}
-      `}
+      className={`relative transition-all ${isDragActive ? "scale-[1.02]" : ""}`}
     >
-      <input {...getInputProps()} />
-      <Button
-        variant="secondary"
-        className="w-full sm:w-auto relative whitespace-nowrap"
-      >
-        <span className="flex items-center gap-2">
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"
-            />
-          </svg>
-          Upload or Drag & Drop Markdown
-        </span>
+      <input {...getInputProps()} aria-label={t.buttons.upload} />
+      <Button variant="outline" className="gap-2" type="button" onClick={open}>
+        <ArrowUpTrayIcon className="h-4 w-4" strokeWidth={1.5} />
+        {t.buttons.upload}
       </Button>
       {isDragActive && (
-        <div className="absolute inset-0 flex items-center justify-center bg-primary/10 rounded-lg border-2 border-dashed border-primary">
-          <p className="text-primary font-medium">Drop your file here</p>
+        <div className="absolute inset-0 z-10 flex items-center justify-center rounded-lg border-2 border-dashed border-primary bg-primary/10">
+          <p className="font-medium text-primary">{t.buttons.dragFileAnywhere}</p>
         </div>
       )}
     </div>

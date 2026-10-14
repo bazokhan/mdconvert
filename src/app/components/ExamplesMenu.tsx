@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
-import { DocumentTextIcon } from "@heroicons/react/24/outline";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { markdownExamples } from "../utils/markdownExamples";
-import type { MarkdownExample } from "../utils/markdownExamples";
+import { useEffect, useRef } from "react";
+import { Menu, MenuButton, MenuItems } from "@headlessui/react";
+import { DocumentTextIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
+import { markdownExamples, type MarkdownExample as MDEx } from "../utils/markdownExamples";
 import { useLanguage } from "../contexts/LanguageContext";
 import { getTranslations } from "../utils/getTranslations";
 
@@ -15,68 +14,56 @@ interface ExamplesMenuProps {
 }
 
 export function ExamplesMenu({ onSelectExample }: ExamplesMenuProps) {
-  const [isOpen, setIsOpen] = useState(false);
   const { language } = useLanguage();
   const t = getTranslations(language);
-  const panelRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
-    const handler = () => setIsOpen(true);
+    const handler = () => buttonRef.current?.click();
     document.addEventListener(OPEN_EXAMPLES_EVENT, handler);
     return () => document.removeEventListener(OPEN_EXAMPLES_EVENT, handler);
   }, []);
 
-  useEffect(() => {
-    if (!isOpen) return;
-    const handleClickOutside = (e: MouseEvent) => {
-      if (panelRef.current && !panelRef.current.contains(e.target as Node)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
-  }, [isOpen]);
-
-  const handleExampleSelect = (example: MarkdownExample) => {
+  const handleExampleSelect = (example: MDEx) => {
     onSelectExample(example.markdown);
-    setIsOpen(false);
   };
 
   return (
-    <div className="relative" ref={panelRef}>
-      <button
-        type="button"
-        onClick={() => setIsOpen(!isOpen)}
-        className="inline-flex items-center gap-2 rounded-md px-3 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/10"
+    <Menu as="div" className="relative">
+      <MenuButton
+        ref={buttonRef}
+        className="inline-flex items-center gap-1.5 rounded-md px-2.5 py-1.5 text-sm font-medium text-foreground transition-colors hover:bg-muted/10 data-[open]:bg-muted/15 sm:gap-2 sm:px-3"
       >
         <DocumentTextIcon className="h-4 w-4" strokeWidth={1.5} />
-        <span>{t.buttons.examples}</span>
+        <span className="hidden sm:inline">{t.buttons.examples}</span>
         <ChevronDownIcon
-          className={`h-4 w-4 opacity-60 transition-transform ${isOpen ? "rotate-180" : ""}`}
+          className="h-4 w-4 opacity-60 transition-transform data-[open]:rotate-180"
           strokeWidth={1.5}
         />
-      </button>
-      {isOpen && (
-        <div className="absolute left-0 z-50 mt-1.5 w-72 origin-top-left rounded-lg bg-surface py-1 shadow-soft-lg ring-1 ring-border">
-          <div className="max-h-80 overflow-y-auto">
-            {markdownExamples.map((example, index) => (
-              <button
-                key={index}
-                type="button"
-                onClick={() => handleExampleSelect(example)}
-                className="flex w-full flex-col gap-0.5 px-3 py-2.5 text-left transition-colors hover:bg-muted/10"
-              >
-                <span className="text-sm font-medium text-foreground">
-                  {example.title}
-                </span>
-                <span className="text-xs text-muted line-clamp-2">
-                  {example.description}
-                </span>
-              </button>
-            ))}
-          </div>
+      </MenuButton>
+      <MenuItems
+        transition
+        anchor="bottom start"
+        className="z-50 mt-1.5 w-72 origin-top rounded-xl bg-surface py-1.5 shadow-soft-lg ring-1 ring-border focus:outline-none data-[closed]:scale-95 data-[closed]:opacity-0 transition duration-100 ease-out"
+      >
+        <div className="max-h-80 overflow-y-auto">
+          {markdownExamples.map((example, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => handleExampleSelect(example)}
+              className="flex w-full flex-col gap-0.5 px-3 py-2.5 text-left transition-colors data-[focus]:bg-muted/10"
+            >
+              <span className="text-sm font-medium text-foreground">
+                {example.title}
+              </span>
+              <span className="text-xs text-muted line-clamp-2">
+                {example.description}
+              </span>
+            </button>
+          ))}
         </div>
-      )}
-    </div>
+      </MenuItems>
+    </Menu>
   );
 }

@@ -6,11 +6,14 @@ export interface ShortcutConfig {
   onDownload?: () => void;
   onClear?: () => void;
   onCopyHtml?: () => void;
+  onCopyMarkdown?: () => void;
   onOpenFile?: () => void;
   onToggleTheme?: () => void;
   onTogglePreview?: () => void;
   onOpenExamples?: () => void;
   onShowShortcuts?: () => void;
+  onToggleFormat?: () => void;
+  onRunLint?: () => void;
   isModalOpen?: boolean;
 }
 
@@ -21,11 +24,14 @@ export function useKeyboardShortcuts(config: ShortcutConfig) {
     onDownload,
     onClear,
     onCopyHtml,
+    onCopyMarkdown,
     onOpenFile,
     onToggleTheme,
     onTogglePreview,
     onOpenExamples,
     onShowShortcuts,
+    onToggleFormat,
+    onRunLint,
     isModalOpen = false,
   } = config;
 
@@ -54,6 +60,12 @@ export function useKeyboardShortcuts(config: ShortcutConfig) {
       if (modifier && e.shiftKey && e.key === "C") {
         e.preventDefault();
         onCopyHtml?.();
+        return;
+      }
+
+      if (modifier && e.shiftKey && e.key === "M") {
+        e.preventDefault();
+        onCopyMarkdown?.();
         return;
       }
 
@@ -86,16 +98,31 @@ export function useKeyboardShortcuts(config: ShortcutConfig) {
         onOpenExamples?.();
         return;
       }
+
+      if (modifier && e.shiftKey && e.key === "F") {
+        e.preventDefault();
+        onToggleFormat?.();
+        return;
+      }
+
+      if (modifier && e.shiftKey && e.key === "L") {
+        e.preventDefault();
+        onRunLint?.();
+        return;
+      }
     },
     [
       onDownload,
       onClear,
       onCopyHtml,
+      onCopyMarkdown,
       onOpenFile,
       onToggleTheme,
       onTogglePreview,
       onOpenExamples,
       onShowShortcuts,
+      onToggleFormat,
+      onRunLint,
       isModalOpen,
     ]
   );
@@ -112,11 +139,14 @@ export function getShortcutLabel(key: string): string {
   const labels: Record<string, string> = {
     "mod+s": `${cmd}+S`,
     "mod+shift+c": `${cmd}+Shift+C`,
+    "mod+shift+m": `${cmd}+Shift+M`,
     "mod+l": `${cmd}+L`,
     "mod+o": `${cmd}+O`,
     "mod+`": `${cmd}+\``,
     "mod+/": `${cmd}+/`,
     "mod+k": `${cmd}+K`,
+    "mod+shift+f": `${cmd}+Shift+F`,
+    "mod+shift+l": `${cmd}+Shift+L`,
     "?": "?",
   };
   return labels[key] ?? key;

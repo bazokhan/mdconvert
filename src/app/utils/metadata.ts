@@ -1,78 +1,107 @@
 import type { Metadata, Viewport } from "next";
-import { SITE_DOMAIN } from "./contact";
+import { SITE_DOMAIN, BRAND_NAME } from "./contact";
 
 const baseUrl = `https://${SITE_DOMAIN}`;
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#fafafa" },
-    { media: "(prefers-color-scheme: dark)", color: "#0c0f18" },
+    { media: "(prefers-color-scheme: light)", color: "#FAFAF7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0A0A0B" },
   ],
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
 };
 
 export const siteMetadata: Metadata = {
   metadataBase: new URL(baseUrl),
   title: {
-    default: "md2docx – Markdown to Word | Free, private, instant conversion",
-    template: "%s | md2docx",
+    default: `${BRAND_NAME} – Convert Markdown to Word, PDF, HTML, TXT & more`,
+    template: `%s | ${BRAND_NAME}`,
   },
   description:
-    "Turn Markdown into Word docs in seconds. Headings, tables, lists, and code blocks convert cleanly. Client-side only—your files never leave your device. No signup, no limits.",
+    "Convert Markdown to Word, PDF, HTML, TXT and clipboard. Headings, tables, lists and code blocks stay intact. 100% client-side, private, instant. No signup, no limits, installable as a PWA.",
   keywords: [
+    "markdown converter",
     "markdown to word",
+    "markdown to pdf",
+    "markdown to html",
+    "markdown to txt",
     "md to docx",
+    "md to pdf",
+    "online markdown editor",
     "markdown to docx converter",
     "markdown to word converter",
-    "convert markdown to word",
-    "markdown converter online",
-    "free markdown to docx",
+    "convert markdown",
+    "free markdown converter",
+    "privacy markdown converter",
+    "offline markdown converter",
+    "client-side markdown converter",
+    "browser markdown converter",
+    "pwa markdown editor",
+    "installable markdown converter",
     "markdown to microsoft word",
-    "md to word",
     "markdown table to word",
     "markdown headings to word",
-    "client-side markdown converter",
-    "offline markdown converter",
-    "privacy markdown converter",
-    "browser markdown to docx",
-    "markdown editor with word export",
-    "md file to docx",
+    "markdown lint",
+    "markdown validator",
   ],
   authors: [{ name: "Trugraph", url: "https://trugraph.io" }],
   creator: "Trugraph",
   publisher: "Trugraph",
+  applicationName: BRAND_NAME,
+  appleWebApp: {
+    capable: true,
+    title: BRAND_NAME,
+    statusBarStyle: "default",
+  },
+  formatDetection: { telephone: false, email: false, address: false },
   robots: {
     index: true,
     follow: true,
     googleBot: {
       index: true,
       follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
     },
   },
   openGraph: {
     type: "website",
     locale: "en_US",
     url: baseUrl,
-    siteName: "md2docx",
-    title: "md2docx – Markdown to Word in seconds | No signup, your files stay private",
+    siteName: BRAND_NAME,
+    title: `${BRAND_NAME} – Markdown to Word, PDF, HTML, TXT`,
     description:
-      "Convert MD to DOCX in your browser. Headings, tables, lists, and code convert to Word styles. Client-side only—nothing uploads. Free and unlimited.",
+      "Convert Markdown to Word, PDF, HTML or TXT in your browser. Headings, tables, lists and code blocks stay intact. Nothing uploads. Free, offline-capable PWA.",
     images: [
       {
         url: `${baseUrl}/og-image.png`,
         width: 1200,
         height: 630,
-        alt: "md2docx - Markdown to Word converter",
+        alt: `${BRAND_NAME} – markdown to Word, PDF, HTML, TXT`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "md2docx – Turn Markdown into Word docs. Free, private, no signup.",
+    title: `${BRAND_NAME} – Markdown to Word, PDF, HTML, TXT`,
     description:
-      "Headings, tables, lists, code blocks—all convert to Word. Runs in your browser. Your files never leave your device.",
+      "Browser-only Markdown converter. DOCX, PDF, HTML, TXT + clipboard. Private, free, installable PWA.",
     images: [`${baseUrl}/og-image.png`],
     creator: "@trugraph",
   },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512.png", sizes: "512x512", type: "image/png" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    shortcut: "/icon-192.png",
+  },
+  manifest: "/manifest.webmanifest",
   alternates: {
     canonical: baseUrl,
   },

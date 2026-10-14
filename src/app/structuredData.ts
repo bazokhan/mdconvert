@@ -1,39 +1,57 @@
-import { SITE_DOMAIN } from "./utils/contact";
+import { SITE_DOMAIN, BRAND_NAME, TRUGRAPH_URL } from "./utils/contact";
 
 const baseUrl = `https://${SITE_DOMAIN}`;
 
 export const webAppSchema = {
   "@context": "https://schema.org",
   "@type": "WebApplication",
-  name: "md2docx",
+  "@id": `${baseUrl}/#webapp`,
+  name: BRAND_NAME,
+  alternateName: "Markdown Converter",
   description:
-    "md2docx converts Markdown to Word (DOCX) in your browser. Headings, tables, lists, and code blocks map to Word styles. Client-side only—your files never leave your device. No signup, unlimited conversions.",
+    `${BRAND_NAME} converts Markdown to Word (DOCX), PDF, HTML, TXT and the clipboard in your browser. Headings, tables, lists and code blocks map to the target format. 100% client-side — your files never leave your device. No signup, unlimited conversions.`,
   url: baseUrl,
   applicationCategory: "UtilitiesApplication",
   operatingSystem: "Any",
+  browserRequirements: "Requires JavaScript. Requires HTML5.",
   offers: {
     "@type": "Offer",
     price: "0",
     priceCurrency: "USD",
   },
   featureList: [
-    "Markdown to DOCX conversion",
+    "Markdown to DOCX (Word) conversion",
+    "Markdown to PDF via browser print",
+    "Markdown to standalone HTML",
+    "Markdown to plain text TXT",
+    "Markdown to rich-text clipboard (paste into Gmail, Docs, etc.)",
+    "Markdown lint report",
     "Headings H1–H6, tables, ordered and unordered lists",
-    "Blockquotes and code blocks to Word",
-    "Client-side conversion—no server uploads",
-    "Works offline after page load",
-    "Drag-and-drop .md file support",
-    "Live preview with Word-style output",
+    "Blockquotes, fenced and inline code to Word",
+    "Client-side conversion — no server uploads",
+    "Works offline after page load (PWA)",
+    "Drag-and-drop .md files anywhere on the page",
+    "Live preview",
     "Dark and light themes",
-    "Built-in Markdown examples and templates",
+    "11 languages: Arabic, Chinese, English, Farsi, French, German, Hindi, Portuguese, Russian, Spanish, Urdu",
     "Keyboard shortcuts",
-    "11 languages",
+    "Installable as a PWA",
   ],
+  softwareHelp: `${baseUrl}/#faq`,
   author: {
     "@type": "Organization",
     name: "Trugraph",
-    url: "https://trugraph.io",
+    url: TRUGRAPH_URL,
   },
+};
+
+export const organizationSchema = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "@id": `${TRUGRAPH_URL}#organization`,
+  name: "Trugraph",
+  url: TRUGRAPH_URL,
+  logo: `${TRUGRAPH_URL}/logo.png`,
 };
 
 export const faqSchema = {
@@ -42,31 +60,39 @@ export const faqSchema = {
   mainEntity: [
     {
       "@type": "Question",
-      name: "Do I need an account to use the Markdown to Word converter?",
+      name: "Do I need an account to use the Markdown Converter?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. Open md2docx, paste or upload your Markdown, and download the DOCX. No signup or account required.",
+        text: "No. Open the site, paste or upload your Markdown, and download. No signup or account required.",
       },
     },
     {
       "@type": "Question",
-      name: "Does the Markdown to DOCX converter work offline?",
+      name: "Does the Markdown Converter work offline?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. After the page loads, conversion runs entirely in your browser. No internet connection is needed.",
+        text: "Yes. After the page loads, conversion runs entirely in your browser. You can install it as a PWA and use it offline.",
       },
     },
     {
       "@type": "Question",
-      name: "What Markdown formatting converts to Word?",
+      name: "Which formats can I export Markdown to?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "md2docx preserves headings (H1–H6), bold and italic text, tables, ordered and unordered lists, blockquotes, and inline code blocks. All map to standard Word styles.",
+        text: "DOCX (Word), PDF (via browser print), standalone HTML, plain TXT, and the clipboard for rich-text pasting into Gmail, Google Docs, Slack, Notion, etc. There is also a built-in Markdown lint report.",
       },
     },
     {
       "@type": "Question",
-      name: "Is md2docx free to use?",
+      name: "What Markdown formatting is preserved in Word?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Headings (H1–H6), bold and italic, tables with column alignment, ordered and unordered lists, nested lists, blockquotes, inline code and fenced code blocks all map to standard Word styles.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Is Markdown Converter free to use?",
       acceptedAnswer: {
         "@type": "Answer",
         text: "Yes. No trials, no usage limits, no paywalls. Free for personal and commercial use.",
@@ -74,18 +100,26 @@ export const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "Are my files uploaded when converting Markdown to Word?",
+      name: "Are my files uploaded when converting?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "No. md2docx runs entirely in your browser. Your Markdown never leaves your device—conversion is client-side only.",
+        text: "No. Everything runs in your browser. Your Markdown never leaves your device — conversion is client-side only.",
       },
     },
     {
       "@type": "Question",
-      name: "Can I convert Markdown tables to Word?",
+      name: "Can I install Markdown Converter as an app?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Yes. Markdown tables convert to Word tables with proper borders and cell formatting. Column alignment (left, center, right) is preserved.",
+        text: "Yes. It's an installable PWA. In Chrome, Edge, or Safari, use 'Install app' from the address bar or browser menu. Once installed, it launches in its own window and works offline.",
+      },
+    },
+    {
+      "@type": "Question",
+      name: "Does Markdown Converter support languages other than English?",
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: "Yes. The interface is fully translated into 11 languages: English, Arabic, Chinese, Farsi, French, German, Hindi, Portuguese, Russian, Spanish, and Urdu. RTL languages are supported.",
       },
     },
   ],

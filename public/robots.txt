@@ -1,3 +1,4 @@
 User-agent: *
 Allow: /
-Sitemap: https://md2docx.trugraph.io/sitemap.xml 
+
+Sitemap: https://markdown.trugraph.io/sitemap.xml

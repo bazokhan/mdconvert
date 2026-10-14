@@ -13,6 +13,7 @@ interface KeyboardShortcutsModalProps {
   onClose: () => void;
   shortcuts: ShortcutItem[];
   title: string;
+  escHint: string;
 }
 
 export function KeyboardShortcutsModal({
@@ -20,6 +21,7 @@ export function KeyboardShortcutsModal({
   onClose,
   shortcuts,
   title,
+  escHint,
 }: KeyboardShortcutsModalProps) {
   return (
     <Transition appear show={isOpen} as={Fragment}>
@@ -38,7 +40,7 @@ export function KeyboardShortcutsModal({
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 bg-foreground/20 backdrop-blur-sm" aria-hidden="true" />
+          <div className="fixed inset-0 bg-foreground/30 backdrop-blur-sm" aria-hidden="true" />
         </Transition.Child>
 
         <div className="fixed inset-0 overflow-y-auto">
@@ -79,13 +81,7 @@ export function KeyboardShortcutsModal({
                   </dl>
                 </div>
                 <div className="px-6 pb-6">
-                  <p className="text-xs text-muted">
-                    Press{" "}
-                    <kbd className="rounded border border-border bg-muted/10 px-1 py-0.5 font-mono">
-                      Esc
-                    </kbd>{" "}
-                    to close
-                  </p>
+                  <p className="text-xs text-muted">{escHint}</p>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

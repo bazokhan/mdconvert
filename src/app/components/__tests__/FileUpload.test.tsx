@@ -2,6 +2,10 @@ import { render, screen } from "@testing-library/react";
 import { FileUpload } from "../FileUpload";
 import { DropzoneOptions } from "react-dropzone";
 
+jest.mock("../../contexts/LanguageContext", () => ({
+  useLanguage: () => ({ language: "en", setLanguage: jest.fn() }),
+}));
+
 const mockUseDropzone = jest.fn();
 jest.mock("react-dropzone", () => ({
   useDropzone: (options: DropzoneOptions) => {
@@ -10,6 +14,7 @@ jest.mock("react-dropzone", () => ({
       getRootProps: () => ({}),
       getInputProps: () => ({}),
       isDragActive: false,
+      open: jest.fn(),
     };
   },
 }));
@@ -23,9 +28,7 @@ describe("FileUpload", () => {
 
   it("renders upload button", () => {
     render(<FileUpload onFileContent={mockOnFileContent} />);
-    expect(
-      screen.getByRole("button", { name: /upload or drag & drop markdown/i })
-    ).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /upload markdown/i })).toBeInTheDocument();
   });
 
   it("handles file upload", () => {

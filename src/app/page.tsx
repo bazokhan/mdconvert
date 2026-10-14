@@ -1,6 +1,9 @@
 import { ThemeProvider } from "./contexts/ThemeContext";
+import { SettingsProvider } from "./contexts/SettingsContext";
+import { ToastProvider } from "./components/Toast";
 import { MarkdownConverter } from "./components/MarkdownConverter";
 import { Navbar } from "./components/Navbar";
+import { ServiceWorkerRegistrar } from "./components/ServiceWorkerRegistrar";
 import { TranslatedContent } from "./components/TranslatedContent";
 import { TranslatedFooter } from "./components/TranslatedFooter";
 import { TranslatedHeader } from "./components/TranslatedHeader";
@@ -8,17 +11,20 @@ import { TranslatedHeader } from "./components/TranslatedHeader";
 export default async function Home() {
   return (
     <ThemeProvider>
-      <div className="min-h-screen bg-background">
-        <Navbar />
-        <main className="min-h-[calc(100vh-4rem)]">
-          <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-            <TranslatedHeader />
-            <MarkdownConverter />
+      <SettingsProvider>
+        <ToastProvider>
+          <ServiceWorkerRegistrar />
+          <div className="bg-hero-glow min-h-screen">
+            <Navbar />
+            <main>
+              <TranslatedHeader />
+              <MarkdownConverter />
+              <TranslatedContent />
+            </main>
+            <TranslatedFooter />
           </div>
-          <TranslatedContent />
-        </main>
-        <TranslatedFooter />
-      </div>
+        </ToastProvider>
+      </SettingsProvider>
     </ThemeProvider>
   );
 }

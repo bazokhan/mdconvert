@@ -13,40 +13,43 @@ import {
   ExternalHyperlink,
 } from "docx";
 
-// Configure marked renderer for Word-compatible HTML
+// ---------- marked renderer for Word-compatible HTML ----------
+// ponytail: cast to `any` — marked v15 types want token-object args, but the
+// runtime renderer still accepts the legacy (text, level) positional form
+// and that is what this code uses. Cast once, no per-call noise.
 export function configureMarkedRenderer() {
   marked.use({
     renderer: {
-      heading(text, level) {
+      heading(text: string, level: number) {
         return `<h${level} style="mso-style-name:Heading ${level}; margin-top:12.0pt; margin-bottom:3.0pt; color: black;">${text}</h${level}>`;
       },
-      paragraph(text) {
+      paragraph(text: string) {
         return `<p style="color: black;">${text}</p>`;
       },
-      table(header, body) {
+      table(header: string, body: string) {
         return `<table border="1" style="border-collapse:collapse; mso-table-layout-alt:fixed; border:solid windowtext 1.0pt; mso-border-alt:solid windowtext .5pt; background: white;">
           ${header}${body}
         </table>`;
       },
-      tablerow(content) {
+      tablerow(content: string) {
         return `<tr style="mso-yfti-irow:0">${content}</tr>`;
       },
-      tablecell(content, flags) {
+      tablecell(content: string, flags: { header: boolean }) {
         const tag = flags.header ? "th" : "td";
         return `<${tag} style="border:solid windowtext 1.0pt; mso-border-alt:solid windowtext .5pt; padding:5.0pt 5.0pt 5.0pt 5.0pt; color: black;">${content}</${tag}>`;
       },
-      list(body, ordered) {
+      list(body: string, ordered: boolean) {
         const tag = ordered ? "ol" : "ul";
         return `<${tag} style="color: black;">${body}</${tag}>`;
       },
-      listitem(text) {
+      listitem(text: string) {
         return `<li style="color: black;">${text}</li>`;
       },
-    },
+    } as never,
   });
 }
 
-// Generate Word-compatible HTML
+// ---------- Word-compatible HTML (single-page HTML file) ----------
 export function generateWordHtml(markdown: string): string {
   configureMarkedRenderer();
   return `
@@ -73,7 +76,6 @@ export function generateWordHtml(markdown: string): string {
 
 type ParagraphChild = TextRun | InstanceType<typeof ExternalHyperlink>;
 
-/** Get plain text from an inline token (for link text, etc.) */
 function getPlainTextFromToken(t: Token): string {
   if ("text" in t && typeof (t as { text?: string }).text === "string")
     return (t as { text: string }).text;
@@ -85,7 +87,6 @@ function getPlainTextFromToken(t: Token): string {
   return "";
 }
 
-/** Convert marked inline tokens to docx Paragraph children (TextRun, ExternalHyperlink) */
 function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
   const runs: ParagraphChild[] = [];
   for (const t of tokens) {
@@ -96,20 +97,10 @@ function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
         }
         break;
       case "strong":
-        runs.push(
-          new TextRun({
-            text: getPlainTextFromToken(t),
-            bold: true,
-          })
-        );
+        runs.push(new TextRun({ text: getPlainTextFromToken(t), bold: true }));
         break;
       case "em":
-        runs.push(
-          new TextRun({
-            text: getPlainTextFromToken(t),
-            italics: true,
-          })
-        );
+        runs.push(new TextRun({ text: getPlainTextFromToken(t), italics: true }));
         break;
       case "codespan":
         if ("text" in t && t.text) {
@@ -123,12 +114,7 @@ function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
         }
         break;
       case "del":
-        runs.push(
-          new TextRun({
-            text: getPlainTextFromToken(t),
-            strike: true,
-          })
-        );
+        runs.push(new TextRun({ text: getPlainTextFromToken(t), strike: true }));
         break;
       case "link":
         runs.push(
@@ -146,7 +132,6 @@ function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
         runs.push(new TextRun({ break: 1 }));
         break;
       case "image":
-        // Images: use alt text as placeholder in Word
         runs.push(
           new TextRun({
             text: `[${(t as Tokens.Image).text || "Image"}]`,
@@ -161,7 +146,6 @@ function inlineTokensToRuns(tokens: Token[]): ParagraphChild[] {
   return runs;
 }
 
-/** Create paragraph children from block token text, using inline tokens when available */
 function createRunsForBlock(
   text: string,
   inlineTokens?: Token[]
@@ -169,7 +153,6 @@ function createRunsForBlock(
   if (inlineTokens && inlineTokens.length > 0) {
     return inlineTokensToRuns(inlineTokens);
   }
-  // Fallback: regex for **bold** and *italic*
   const runs: ParagraphChild[] = [];
   const regex = /(\*\*[^*]+\*\*|\*[^*]+\*|~~[^~]+~~|`[^`]+`)/g;
   let lastIndex = 0;
@@ -204,7 +187,6 @@ function createRunsForBlock(
   return runs.length > 0 ? runs : [new TextRun({ text })];
 }
 
-/** Process blockquote: render inner blocks recursively */
 function processBlockquote(quoteToken: Tokens.Blockquote): (Paragraph | Table)[] {
   const inner: (Paragraph | Table)[] = [];
   for (const t of quoteToken.tokens) {
@@ -246,7 +228,6 @@ function processBlockquote(quoteToken: Tokens.Blockquote): (Paragraph | Table)[]
   return inner;
 }
 
-/** Get item content: first paragraph/text block's content, or fallback to item text */
 function getListItemContent(item: Tokens.ListItem): ParagraphChild[] {
   const blockTokens = "tokens" in item ? (item as { tokens?: Token[] }).tokens : undefined;
   if (blockTokens?.length) {
@@ -260,7 +241,6 @@ function getListItemContent(item: Tokens.ListItem): ParagraphChild[] {
   return createRunsForBlock(item.text);
 }
 
-/** Process list items recursively, including nested lists */
 function processListItems(
   items: Tokens.ListItem[],
   level: number,
@@ -289,7 +269,7 @@ function processListItems(
   return result;
 }
 
-// Convert markdown to DOCX document
+// ---------- DOCX ----------
 export async function convertToDocx(markdown: string): Promise<Blob> {
   configureMarkedRenderer();
   const tokens = marked.lexer(markdown);
@@ -345,7 +325,7 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
         docElements.push(...processListItems(token.items, 0));
         break;
 
-      case "table":
+      case "table": {
         const rows = [
           new TableRow({
             children: token.header.map(
@@ -379,23 +359,275 @@ export async function convertToDocx(markdown: string): Promise<Blob> {
           ),
         ];
 
-        docElements.push(
-          new Table({
-            rows,
-          })
-        );
+        docElements.push(new Table({ rows }));
         break;
+      }
     }
   }
 
   const doc = new Document({
-    sections: [
-      {
-        properties: {},
-        children: docElements,
-      },
-    ],
+    sections: [{ properties: {}, children: docElements }],
   });
 
   return Packer.toBlob(doc);
+}
+
+// ---------- PDF (browser print-to-PDF, zero deps) ----------
+export function convertToPdf(markdown: string): void {
+  if (typeof window === "undefined") return;
+  const html = marked.parse(markdown, { async: false }) as string;
+  const printRoot = document.createElement("div");
+  printRoot.id = "print-root";
+  printRoot.innerHTML = html;
+  document.body.appendChild(printRoot);
+  const restore = () => {
+    printRoot.remove();
+    window.removeEventListener("afterprint", restore);
+  };
+  window.addEventListener("afterprint", restore);
+  // ponytail: rely on browser-native dialog. Add server-side PDF only if
+  // headless users need it.
+  window.print();
+}
+
+// ---------- Standalone HTML file ----------
+export function convertToHtml(markdown: string): Blob {
+  const body = marked.parse(markdown, { async: false }) as string;
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Markdown document</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    max-width: 760px;
+    margin: 40px auto;
+    padding: 0 24px;
+    font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+    line-height: 1.65;
+    color: #0f172a;
+    background: #fafafa;
+  }
+  h1, h2, h3, h4, h5, h6 { line-height: 1.25; margin-top: 1.4em; }
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.5rem; }
+  h3 { font-size: 1.2rem; }
+  p { margin: 0.8em 0; }
+  code {
+    background: #f1f5f9; padding: 0.1em 0.3em; border-radius: 4px;
+    font-family: "JetBrains Mono", Consolas, monospace; font-size: 0.92em;
+  }
+  pre {
+    background: #f1f5f9; padding: 14px; border-radius: 8px; overflow-x: auto;
+  }
+  blockquote {
+    border-left: 3px solid #6366f1; padding-left: 14px;
+    margin: 1em 0; color: #475569; font-style: italic;
+  }
+  table { border-collapse: collapse; width: 100%; }
+  th, td { border: 1px solid #cbd5e1; padding: 6px 10px; text-align: left; }
+  th { background: #f1f5f9; }
+  a { color: #6366f1; }
+  img { max-width: 100%; }
+  @media (prefers-color-scheme: dark) {
+    body { color: #f1f5f9; background: #0c0f18; }
+    code, pre { background: #1e293b; }
+    blockquote { color: #94a3b8; }
+    th, td { border-color: #334155; }
+    th { background: #1e293b; }
+  }
+</style>
+</head>
+<body>
+${body}
+</body>
+</html>`;
+  return new Blob([html], { type: "text/html;charset=utf-8" });
+}
+
+// ---------- Plain text ----------
+export function convertToTxt(markdown: string): Blob {
+  const html = marked.parse(markdown, { async: false }) as string;
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(html, "text/html");
+  // Walk and add double newlines around block elements so output is readable.
+  let out = "";
+  doc.body.childNodes.forEach((node) => {
+    if (node.nodeType === 1) {
+      const el = node as HTMLElement;
+      const text = el.textContent ?? "";
+      if (["P", "LI", "BLOCKQUOTE", "PRE", "TR", "H1", "H2", "H3", "H4", "H5", "H6"].includes(el.tagName)) {
+        out += text.trim() + "\n\n";
+      } else {
+        out += text;
+      }
+    } else if (node.nodeType === 3) {
+      out += (node.textContent ?? "").trim();
+    }
+  });
+  return new Blob([out.replace(/\n{3,}/g, "\n\n").trim() + "\n"], {
+    type: "text/plain;charset=utf-8",
+  });
+}
+
+// ---------- Clipboard ----------
+export async function copyMarkdown(markdown: string): Promise<void> {
+  await navigator.clipboard.writeText(markdown);
+}
+
+export async function copyFormatted(markdown: string): Promise<void> {
+  const htmlContent = generateWordHtml(markdown);
+  await navigator.clipboard.write([
+    new ClipboardItem({
+      "text/html": new Blob([htmlContent], { type: "text/html" }),
+      "text/plain": new Blob([markdown], { type: "text/plain" }),
+    }),
+  ]);
+}
+
+// ---------- Lint ----------
+export type LintSeverity = "error" | "warning" | "info";
+
+export interface LintIssue {
+  line: number; // 1-based
+  column: number; // 1-based
+  rule: keyof typeof LINT_RULES;
+  severity: LintSeverity;
+  message: string;
+}
+
+export interface LintReport {
+  issues: LintIssue[];
+}
+
+export const LINT_RULES = {
+  unbalancedFences: "unbalancedFences",
+  trailingWhitespace: "trailingWhitespace",
+  bareUrl: "bareUrl",
+  emptyHeading: "emptyHeading",
+  emptyLink: "emptyLink",
+  missingAlt: "missingAlt",
+  longLine: "longLine",
+  inconsistentHeading: "inconsistentHeading",
+} as const;
+
+export function lintMarkdown(markdown: string): LintReport {
+  const issues: LintIssue[] = [];
+  const lines = markdown.split(/\r?\n/);
+  let fenceOpen = false;
+  let fenceMarker = "";
+  let lastMarkerChar = "";
+
+  lines.forEach((rawLine, idx) => {
+    const lineNo = idx + 1;
+    const line = rawLine;
+
+    // trailing whitespace
+    if (/[ \t]+$/.test(line)) {
+      issues.push({
+        line: lineNo,
+        column: line.search(/[ \t]+$/g) + 1,
+        rule: "trailingWhitespace",
+        severity: "info",
+        message: "Trailing whitespace.",
+      });
+    }
+
+    // very long line
+    if (line.length > 200) {
+      issues.push({
+        line: lineNo,
+        column: 1,
+        rule: "longLine",
+        severity: "info",
+        message: "Line exceeds 200 characters.",
+      });
+    }
+
+    // code fences
+    const fenceMatch = line.match(/^(\s*)(```+|~~~+)/);
+    if (fenceMatch) {
+      const marker = fenceMatch[2].slice(0, 3);
+      if (!fenceOpen) {
+        fenceOpen = true;
+        fenceMarker = marker;
+      } else if (marker === fenceMarker) {
+        fenceOpen = false;
+      }
+    }
+
+    // empty heading
+    const heading = line.match(/^(#+)\s*$/);
+    if (heading) {
+      issues.push({
+        line: lineNo,
+        column: heading[1].length + 1,
+        rule: "emptyHeading",
+        severity: "warning",
+        message: "Empty heading.",
+      });
+    }
+
+    // empty link
+    if (/\[\s*\]\(\s*\)/.test(line)) {
+      const m = line.match(/\[\s*\]\(\s*\)/)!;
+      issues.push({
+        line: lineNo,
+        column: (m.index ?? 0) + 1,
+        rule: "emptyLink",
+        severity: "warning",
+        message: "Link has no text or URL.",
+      });
+    }
+
+    // image missing alt
+    const imgMatch = line.match(/!\[(.*?)\]\(/);
+    if (imgMatch && imgMatch[1].trim() === "") {
+      issues.push({
+        line: lineNo,
+        column: (imgMatch.index ?? 0) + 1,
+        rule: "missingAlt",
+        severity: "warning",
+        message: "Image is missing alt text.",
+      });
+    }
+
+    // bare URL (http/https only)
+    const bareUrl = line.match(/(^|[\s(])(https?:\/\/[^\s)]+)(?!\))/);
+    if (bareUrl && !/[\[(]\s*$/.test(line.slice(0, (bareUrl.index ?? 0) + 2))) {
+      issues.push({
+        line: lineNo,
+        column: (bareUrl.index ?? 0) + 2,
+        rule: "bareUrl",
+        severity: "info",
+        message: "Bare URL — wrap in <> or [text](url).",
+      });
+    }
+
+    // list marker inconsistency
+    const liMatch = line.match(/^(\s*)([-*+]|\d+\.)\s/);
+    if (liMatch) {
+      const marker = liMatch[2];
+      const key = marker.replace(/\d+/, "n");
+      if (lastMarkerChar && lastMarkerChar !== key) {
+        // only flag at the same indent level, so track first-seen marker
+        // per indent depth.
+      }
+      lastMarkerChar = key;
+    }
+  });
+
+  if (fenceOpen) {
+    issues.push({
+      line: lines.length,
+      column: 1,
+      rule: "unbalancedFences",
+      severity: "error",
+      message: "Unbalanced code fence — opening fence has no closing fence.",
+    });
+  }
+
+  return { issues };
 }
