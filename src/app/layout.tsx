@@ -115,6 +115,11 @@ export default async function RootLayout({
             src="https://analytics.umami.is/script.js"
           />
         ) : null}
+        <script
+          defer
+          src="https://analytics.trugraph.io/script.js"
+          data-website-id="e14d0f30-71e6-4d1b-8e71-9916e8167640"
+        />
       </head>
       <body className="antialiased font-sans text-foreground">
         <LanguageProvider>{children}</LanguageProvider>
